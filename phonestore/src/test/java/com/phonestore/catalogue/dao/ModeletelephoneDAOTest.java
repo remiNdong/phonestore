@@ -151,5 +151,36 @@ class ModeletelephoneDAOTest {
 	}
 	
 	
+	/**
+	 * tests if findByMarque returns the right  Modeletelephone
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	@Sql("/testsql/catalogue/modeletelephone/loadModeles.sql")
+	public void findByMarque() throws Exception {
+		
+		Optional<Marque> optMarque=marqueDAO.findById(1L);
+		Marque marque=optMarque.get();
+		
+	
+		Optional<Modeletelephone> optmodele=modeletelephoneDAO.findById(1L);
+		Modeletelephone modele1=optmodele.get();
+		 optmodele=modeletelephoneDAO.findById(2L);
+		Modeletelephone modele2=optmodele.get();
+		 optmodele=modeletelephoneDAO.findById(3L);
+		Modeletelephone modele3=optmodele.get();
+		
+		
+		List<Modeletelephone> list=modeletelephoneDAO.findByMarque(marque);
+		assertEquals(list.size(),3);
+		assertTrue(list.contains(modele1));
+		assertTrue(list.contains(modele2));
+		assertTrue(list.contains(modele3));
+		
+		
+	}
+	
+	
 	
 }
