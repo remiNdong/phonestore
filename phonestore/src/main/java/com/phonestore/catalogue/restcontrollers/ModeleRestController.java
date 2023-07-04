@@ -8,25 +8,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.phonestore.catalogue.dao.MarqueDAO;
-import com.phonestore.catalogue.domain.Marque;
-import com.phonestore.catalogue.dto.MarqueDTO;
+import com.phonestore.catalogue.dto.ModeletelephoneDTO;
 import com.phonestore.catalogue.service.CatalogueService;
 
 @RestController
-@RequestMapping("/api/marques")
-public class MarqueRestController {
+@RequestMapping("/api/modeles")
+public class ModeleRestController {
 	
-	   @Autowired
+	  @Autowired
 	    CatalogueService catalogueService;
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public List<MarqueDTO> getAllMarques() {
-		return catalogueService.findMarques();
+	public List<ModeletelephoneDTO> getAllModeles() {
+		return catalogueService.findModeletelephones();
 	}
 	
-	
-	
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	public ModeletelephoneDTO getModeleById(@PathVariable("id") Long id) {
+		return catalogueService.findModele(id).get();
+	}
 	
 
 }

@@ -1,6 +1,7 @@
 package com.phonestore.catalogue.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.phonestore.catalogue.dto.MarqueDTO;
 import com.phonestore.catalogue.dto.ModeletelephoneDTO;
@@ -21,6 +22,11 @@ public interface CatalogueService {
 	 * renverra la liste des modeletelephoneDTO triées par defaut par prix croissant
 	 */
 	List<ModeletelephoneDTO> findModeletelephones();
+	
+	/*
+	 * renverra un modeleDTO trouvé par son ID
+	 */
+	Optional<ModeletelephoneDTO> findModele(Long id);
 	
 	/*
 	 * renverra la liste des modeletelephoneDTO filtrée par Marque triées par defaut par prix croissant

@@ -1,5 +1,6 @@
 package com.phonestore.catalogue.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,6 +42,8 @@ public class CatalogueServiceImpl implements CatalogueService {
 	public List<ModeletelephoneDTO> findModeletelephonesByMarque(Long marqueId) {
 		Optional<Marque> marque=marqueDAO.findById(marqueId);
 		
+		if(marque.isEmpty())
+			return new ArrayList<ModeletelephoneDTO>();
 		
 		return modeletelephoneDAO.findByMarque(marque.get()).stream().map(CatalogueDTOMapper::modeletelephoneToDTO).toList();
 	}
@@ -56,6 +59,11 @@ public class CatalogueServiceImpl implements CatalogueService {
 	public List<ModeletelephoneDTO> findModeletelephonesByCapaciteStockage(int capacite) {
 
 		return modeletelephoneDAO.findByCapaciteStockage(capacite).stream().map(CatalogueDTOMapper::modeletelephoneToDTO).toList();
+	}
+
+	@Override
+	public Optional<ModeletelephoneDTO> findModele(Long id) {
+		return modeletelephoneDAO.findById(id).map(CatalogueDTOMapper::modeletelephoneToDTO);
 	}
 
 }
