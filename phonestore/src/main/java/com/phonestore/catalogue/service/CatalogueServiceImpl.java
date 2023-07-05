@@ -12,9 +12,16 @@ import org.springframework.validation.annotation.Validated;
 import com.phonestore.catalogue.dao.MarqueDAO;
 import com.phonestore.catalogue.dao.ModeletelephoneDAO;
 import com.phonestore.catalogue.domain.Marque;
+import com.phonestore.catalogue.domain.Modeletelephone;
 import com.phonestore.catalogue.dto.MarqueDTO;
+import com.phonestore.catalogue.dto.ModeletelephoneCreationDTO;
 import com.phonestore.catalogue.dto.ModeletelephoneDTO;
+import com.phonestore.catalogue.dto.ModeletelephoneUpdatedDTO;
+import com.phonestore.catalogue.exception.IdMarqueNonExistanteException;
+import com.phonestore.catalogue.exception.IdModeleNonExistantException;
+import com.phonestore.catalogue.exception.ReferenceModeleExistanteException;
 
+import jakarta.validation.Valid;
 
 @Service
 @Validated
@@ -23,7 +30,7 @@ public class CatalogueServiceImpl implements CatalogueService {
 
 	@Autowired
 	ModeletelephoneDAO modeletelephoneDAO;
-	
+
 	@Autowired
 	MarqueDAO marqueDAO;
 
@@ -34,36 +41,88 @@ public class CatalogueServiceImpl implements CatalogueService {
 
 	@Override
 	public List<ModeletelephoneDTO> findModeletelephones() {
-		
+
 		return modeletelephoneDAO.findByPrixAsc().stream().map(CatalogueDTOMapper::modeletelephoneToDTO).toList();
 	}
 
 	@Override
 	public List<ModeletelephoneDTO> findModeletelephonesByMarque(Long marqueId) {
-		Optional<Marque> marque=marqueDAO.findById(marqueId);
-		
-		if(marque.isEmpty())
+		Optional<Marque> marque = marqueDAO.findById(marqueId);
+
+		if (marque.isEmpty())
 			return new ArrayList<ModeletelephoneDTO>();
-		
-		return modeletelephoneDAO.findByMarque(marque.get()).stream().map(CatalogueDTOMapper::modeletelephoneToDTO).toList();
+
+		return modeletelephoneDAO.findByMarque(marque.get()).stream().map(CatalogueDTOMapper::modeletelephoneToDTO)
+				.toList();
 	}
 
 	@Override
 	public List<ModeletelephoneDTO> findModeletelephonesByTailleEcran(double taille) {
 
-
-		return modeletelephoneDAO.findByTailleEcran(taille).stream().map(CatalogueDTOMapper::modeletelephoneToDTO).toList();
+		return modeletelephoneDAO.findByTailleEcran(taille).stream().map(CatalogueDTOMapper::modeletelephoneToDTO)
+				.toList();
 	}
 
 	@Override
 	public List<ModeletelephoneDTO> findModeletelephonesByCapaciteStockage(int capacite) {
 
-		return modeletelephoneDAO.findByCapaciteStockage(capacite).stream().map(CatalogueDTOMapper::modeletelephoneToDTO).toList();
+		return modeletelephoneDAO.findByCapaciteStockage(capacite).stream()
+				.map(CatalogueDTOMapper::modeletelephoneToDTO).toList();
 	}
 
 	@Override
 	public Optional<ModeletelephoneDTO> findModele(Long id) {
 		return modeletelephoneDAO.findById(id).map(CatalogueDTOMapper::modeletelephoneToDTO);
+	}
+
+	@Override
+	public Long createModele(@Valid ModeletelephoneCreationDTO modeletelephoneCreationDTO) {
+
+		List<Modeletelephone> list = modeletelephoneDAO.findByReference(modeletelephoneCreationDTO.getReference());
+
+		if (!list.isEmpty())
+			throw new ReferenceModeleExistanteException();
+
+		Optional<Marque> optMarque = marqueDAO.findById(modeletelephoneCreationDTO.getIdMarque());
+
+		if (optMarque.isEmpty())
+			throw new IdMarqueNonExistanteException();
+
+		Modeletelephone modele = CatalogueDTOMapper.fromDTOtoModeletelephone(modeletelephoneCreationDTO);
+		modele.setMarque(optMarque.get());
+
+		Modeletelephone modeleSaved = modeletelephoneDAO.save(modele);
+		return modeleSaved.getId();
+
+	}
+
+	@Override
+	public Long updateModele(@Valid ModeletelephoneUpdatedDTO modeletelephoneUpdatedDTO) {
+
+		Optional<Modeletelephone> optModele = modeletelephoneDAO.findById(modeletelephoneUpdatedDTO.getId());
+		if (optModele.isEmpty())
+			throw new IdModeleNonExistantException();
+
+		Optional<Marque> optMarque = marqueDAO.findById(modeletelephoneUpdatedDTO.getIdMarque());
+
+		if (optMarque.isEmpty())
+			throw new IdMarqueNonExistanteException();
+
+		List<Modeletelephone> list = modeletelephoneDAO.findByReference(modeletelephoneUpdatedDTO.getReference());
+		if (!list.isEmpty())
+			throw new ReferenceModeleExistanteException();
+
+		Modeletelephone modele = optModele.get();
+		modele.setReference(modeletelephoneUpdatedDTO.getReference());
+		modele.setPrix(modeletelephoneUpdatedDTO.getPrix());
+		modele.setTailleEcran(modeletelephoneUpdatedDTO.getTailleEcran());
+		modele.setCapaciteStockage(modeletelephoneUpdatedDTO.getCapaciteStockage());
+		modele.setImagePath(modeletelephoneUpdatedDTO.getReference() + ".jpg");
+		modele.setMarque(optMarque.get());
+		
+		Modeletelephone modeleSaved = modeletelephoneDAO.save(modele);
+		return modeleSaved.getId();
+
 	}
 
 }

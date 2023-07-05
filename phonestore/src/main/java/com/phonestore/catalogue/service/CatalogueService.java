@@ -3,8 +3,12 @@ package com.phonestore.catalogue.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.phonestore.catalogue.domain.Modeletelephone;
 import com.phonestore.catalogue.dto.MarqueDTO;
 import com.phonestore.catalogue.dto.ModeletelephoneDTO;
+import com.phonestore.catalogue.dto.ModeletelephoneUpdatedDTO;
+import com.phonestore.catalogue.dto.ModeletelephoneCreationDTO;
+import jakarta.validation.Valid;
 
 public interface CatalogueService {
 	
@@ -42,6 +46,18 @@ public interface CatalogueService {
 	 * renverra la liste des modeletelephoneDTO triées par capacite de stockage par defaut par prix croissant
 	 */
 	List<ModeletelephoneDTO> findModeletelephonesByCapaciteStockage(int capacite);
+	
+	/*
+	 * creera un nouveau modele conforme aux contraintes et renverra son id
+	 */
+	Long createModele(@Valid ModeletelephoneCreationDTO modeletelephoneCreationDTO);
+	
+	/*
+	 * mise a jour d'un modele conforme aux contraintes et renverra son id
+	 */
+	Long updateModele(@Valid ModeletelephoneUpdatedDTO modeletelephoneUpdatedDTO);
+	
+	
 	
 
 }
