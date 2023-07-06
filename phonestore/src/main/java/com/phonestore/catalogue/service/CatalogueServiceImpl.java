@@ -83,7 +83,7 @@ public class CatalogueServiceImpl implements CatalogueService {
 		if (!list.isEmpty())
 			throw new ReferenceModeleExistanteException();
 
-		Optional<Marque> optMarque = marqueDAO.findById(modeletelephoneCreationDTO.getIdMarque());
+		Optional<Marque> optMarque = marqueDAO.findById(modeletelephoneCreationDTO.getMarqueDTO().getId());
 
 		if (optMarque.isEmpty())
 			throw new IdMarqueNonExistanteException();
@@ -103,7 +103,7 @@ public class CatalogueServiceImpl implements CatalogueService {
 		if (optModele.isEmpty())
 			throw new IdModeleNonExistantException();
 
-		Optional<Marque> optMarque = marqueDAO.findById(modeletelephoneUpdatedDTO.getIdMarque());
+		Optional<Marque> optMarque = marqueDAO.findById(modeletelephoneUpdatedDTO.getMarqueDTO().getId());
 
 		if (optMarque.isEmpty())
 			throw new IdMarqueNonExistanteException();

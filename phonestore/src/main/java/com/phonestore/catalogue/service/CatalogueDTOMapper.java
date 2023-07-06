@@ -24,8 +24,9 @@ public class CatalogueDTOMapper {
 
 public static ModeletelephoneDTO modeletelephoneToDTO(Modeletelephone modeletelephone) {
 		
+	MarqueDTO marqueDTO=new MarqueDTO(modeletelephone.getMarque().getId(), modeletelephone.getMarque().getNom());
 		return new ModeletelephoneDTO(modeletelephone.getId(), modeletelephone.getReference(), modeletelephone.getPrix(), modeletelephone.getTailleEcran(), modeletelephone.getCapaciteStockage(),
-				modeletelephone.getImagePath(), modeletelephone.getMarque().getId(), modeletelephone.getMarque().getNom());
+				modeletelephone.getImagePath(),marqueDTO);
 		
 	}
 

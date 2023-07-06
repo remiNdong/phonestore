@@ -15,8 +15,7 @@ public class ModeletelephoneDTO {
 	private double TailleEcran;
 	private int capaciteStockage;
 	private String imagePath;
-	private Long idMarque;
-	private String nomMarque;
+	private MarqueDTO marqueDTO;
 	
 	
 }
