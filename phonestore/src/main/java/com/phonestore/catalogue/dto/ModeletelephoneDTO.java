@@ -12,7 +12,7 @@ public class ModeletelephoneDTO {
 	private Long id;
 	private String reference;
 	private double prix;
-	private double TailleEcran;
+	private double tailleEcran;
 	private int capaciteStockage;
 	private String imagePath;
 	private MarqueDTO marqueDTO;
