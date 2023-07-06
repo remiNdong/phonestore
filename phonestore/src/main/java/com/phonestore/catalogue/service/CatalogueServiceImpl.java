@@ -113,11 +113,11 @@ public class CatalogueServiceImpl implements CatalogueService {
 			throw new ReferenceModeleExistanteException();
 
 		Modeletelephone modele = optModele.get();
-		modele.setReference(modeletelephoneUpdatedDTO.getReference());
+		modele.setReference(modeletelephoneUpdatedDTO.getReference().toLowerCase());
 		modele.setPrix(modeletelephoneUpdatedDTO.getPrix());
 		modele.setTailleEcran(modeletelephoneUpdatedDTO.getTailleEcran());
 		modele.setCapaciteStockage(modeletelephoneUpdatedDTO.getCapaciteStockage());
-		modele.setImagePath(modeletelephoneUpdatedDTO.getReference() + ".jpg");
+		modele.setImagePath(modeletelephoneUpdatedDTO.getReference().toLowerCase() + ".jpg");
 		modele.setMarque(optMarque.get());
 		
 		Modeletelephone modeleSaved = modeletelephoneDAO.save(modele);

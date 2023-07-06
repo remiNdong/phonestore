@@ -34,8 +34,8 @@ public static ModeletelephoneDTO modeletelephoneToDTO(Modeletelephone modeletele
 public static Modeletelephone fromDTOtoModeletelephone(ModeletelephoneCreationDTO modeletelephoneCreationDTO) {
 	
 	
-	return new Modeletelephone(0L, modeletelephoneCreationDTO.getReference(), modeletelephoneCreationDTO.getPrix(), modeletelephoneCreationDTO.getTailleEcran(), 
-			modeletelephoneCreationDTO.getCapaciteStockage(), modeletelephoneCreationDTO.getReference()+".jpg", null);
+	return new Modeletelephone(0L, modeletelephoneCreationDTO.getReference().toLowerCase(), modeletelephoneCreationDTO.getPrix(), modeletelephoneCreationDTO.getTailleEcran(), 
+			modeletelephoneCreationDTO.getCapaciteStockage(), modeletelephoneCreationDTO.getReference().toLowerCase()+".jpg", null);
 }
 
 

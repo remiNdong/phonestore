@@ -31,7 +31,7 @@ public class DefaultContent {
 
 	public static ModeletelephoneCreationDTO defaultModeleCreationDTO() {
 
-		return new ModeletelephoneCreationDTO("iphone_12", 809, 6.1, 128, defaultMarqueDTO());
+		return new ModeletelephoneCreationDTO(0L,"iphone_12", 809, 6.1, 128, defaultMarqueDTO());
 
 	}
 	

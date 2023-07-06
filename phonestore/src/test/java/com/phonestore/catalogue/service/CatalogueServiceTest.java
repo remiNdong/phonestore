@@ -175,6 +175,25 @@ public class CatalogueServiceTest {
 	
 	@Test
 	@Sql("/testsql/catalogue/modeletelephone/loadModeles.sql")
+	public void testCreateModeleLowerCase() {
+
+		ModeletelephoneCreationDTO modeletelephoneCreationDTO=DefaultContent.defaultModeleCreationDTO();
+		modeletelephoneCreationDTO.setReference("IPHONE_12");
+		Long idModele=catalogueService.createModele(modeletelephoneCreationDTO);
+		ModeletelephoneDTO newModeleDTO=catalogueService.findModele(idModele).get();
+		assertTrue(newModeleDTO.getReference().equals("iphone_12"));
+		assertTrue(newModeleDTO.getImagePath().equals("iphone_12.jpg"));
+		assertTrue(newModeleDTO.getPrix()==809);
+		assertTrue(newModeleDTO.getTailleEcran()==6.1);
+		assertTrue(newModeleDTO.getCapaciteStockage()==128);
+		assertTrue(newModeleDTO.getMarqueDTO().getId()==1L);
+		assertTrue(newModeleDTO.getMarqueDTO().getNom().equals("APPLE"));
+		
+
+	}
+	
+	@Test
+	@Sql("/testsql/catalogue/modeletelephone/loadModeles.sql")
 	public void testCreateModeleDejaExistant() {
 
 		
@@ -188,7 +207,7 @@ public class CatalogueServiceTest {
 	@Sql("/testsql/catalogue/modeletelephone/loadModeles.sql")
 	public void testCreateModeleReferenceFausse() {
 
-		ModeletelephoneCreationDTO modeleFaux=new ModeletelephoneCreationDTO("", 809, 6.1, 128, DefaultContent.defaultMarqueDTO());
+		ModeletelephoneCreationDTO modeleFaux=new ModeletelephoneCreationDTO(0L,"", 809, 6.1, 128, DefaultContent.defaultMarqueDTO());
 		
 		assertThrows(ConstraintViolationException.class, ()->catalogueService.createModele(modeleFaux));
 		
@@ -199,7 +218,7 @@ public class CatalogueServiceTest {
 	@Sql("/testsql/catalogue/modeletelephone/loadModeles.sql")
 	public void testCreateModelePrixFaux() {
 
-		ModeletelephoneCreationDTO modeleFaux=new ModeletelephoneCreationDTO("iphone_12", 0, 6.1, 128, DefaultContent.defaultMarqueDTO());
+		ModeletelephoneCreationDTO modeleFaux=new ModeletelephoneCreationDTO(0L,"iphone_12", 0, 6.1, 128, DefaultContent.defaultMarqueDTO());
 		
 		assertThrows(ConstraintViolationException.class, ()->catalogueService.createModele(modeleFaux));
 		
@@ -210,7 +229,7 @@ public class CatalogueServiceTest {
 	@Sql("/testsql/catalogue/modeletelephone/loadModeles.sql")
 	public void testCreateModeleTailleEcranFaux() {
 
-		ModeletelephoneCreationDTO modeleFaux=new ModeletelephoneCreationDTO("iphone_12", 869, 0, 128, DefaultContent.defaultMarqueDTO());
+		ModeletelephoneCreationDTO modeleFaux=new ModeletelephoneCreationDTO(0L,"iphone_12", 869, 0, 128, DefaultContent.defaultMarqueDTO());
 		
 		assertThrows(ConstraintViolationException.class, ()->catalogueService.createModele(modeleFaux));
 		
@@ -221,7 +240,7 @@ public class CatalogueServiceTest {
 	@Sql("/testsql/catalogue/modeletelephone/loadModeles.sql")
 	public void testCreateModeleMemoireFausse() {
 
-		ModeletelephoneCreationDTO modeleFaux=new ModeletelephoneCreationDTO("iphone_12", 869, 6.1, 0, DefaultContent.defaultMarqueDTO());
+		ModeletelephoneCreationDTO modeleFaux=new ModeletelephoneCreationDTO(0L,"iphone_12", 869, 6.1, 0, DefaultContent.defaultMarqueDTO());
 		
 		assertThrows(ConstraintViolationException.class, ()->catalogueService.createModele(modeleFaux));
 		
@@ -232,7 +251,7 @@ public class CatalogueServiceTest {
 	@Sql("/testsql/catalogue/modeletelephone/loadModeles.sql")
 	public void testCreateModeleMarqueFausse() {
 
-		ModeletelephoneCreationDTO modeleFaux=new ModeletelephoneCreationDTO("iphone_12", 869, 6.1, 128, null);
+		ModeletelephoneCreationDTO modeleFaux=new ModeletelephoneCreationDTO(0L,"iphone_12", 869, 6.1, 128, null);
 		
 		assertThrows(ConstraintViolationException.class, ()->catalogueService.createModele(modeleFaux));
 		
@@ -243,7 +262,7 @@ public class CatalogueServiceTest {
 	@Sql("/testsql/catalogue/modeletelephone/loadModeles.sql")
 	public void testCreateModeleIdMarqueNonExistante() {
 
-		ModeletelephoneCreationDTO modeleFaux=new ModeletelephoneCreationDTO("iphone_12", 869, 6.1, 128, DefaultContent.defaultMarqueDTOFalse());
+		ModeletelephoneCreationDTO modeleFaux=new ModeletelephoneCreationDTO(0L,"iphone_12", 869, 6.1, 128, DefaultContent.defaultMarqueDTOFalse());
 		
 		assertThrows(IdMarqueNonExistanteException.class, ()->catalogueService.createModele(modeleFaux));
 		
@@ -259,8 +278,8 @@ public class CatalogueServiceTest {
 		
 		Long idModele=catalogueService.updateModele(DefaultContent.defaultModeleUpdatedDTO());
 		ModeletelephoneDTO newModeleDTO=catalogueService.findModele(idModele).get();
-		assertTrue(newModeleDTO.getReference().equals("iphone_SE"));
-		assertTrue(newModeleDTO.getImagePath().equals("iphone_SE.jpg"));
+		assertTrue(newModeleDTO.getReference().equals("iphone_se"));
+		assertTrue(newModeleDTO.getImagePath().equals("iphone_se.jpg"));
 		assertTrue(newModeleDTO.getPrix()==559);
 		assertTrue(newModeleDTO.getTailleEcran()==4.7);
 		assertTrue(newModeleDTO.getCapaciteStockage()==64);

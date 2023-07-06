@@ -12,6 +12,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ModeletelephoneCreationDTO {
 	
+	private Long id;
+	
 	@NotBlank
 	private String reference;
 	
