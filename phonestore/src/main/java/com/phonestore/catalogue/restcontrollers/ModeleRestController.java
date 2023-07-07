@@ -1,14 +1,21 @@
 package com.phonestore.catalogue.restcontrollers;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.phonestore.catalogue.dto.MessageDTO;
@@ -19,6 +26,7 @@ import com.phonestore.catalogue.exception.ReferenceModeleExistanteException;
 import com.phonestore.catalogue.service.CatalogueService;
 
 import jakarta.validation.ConstraintViolationException;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/modeles")
@@ -49,9 +57,9 @@ public class ModeleRestController {
 	}
 
 	@RequestMapping(value = "/addmodele", method = RequestMethod.POST)
-	public ResponseEntity<MessageDTO> createModele(@RequestBody ModeletelephoneCreationDTO modeletelephoneCreationDTO) {
+	public ResponseEntity<MessageDTO> createModele(
+			@Valid @RequestBody ModeletelephoneCreationDTO modeletelephoneCreationDTO) {
 
-		
 		try {
 			System.out.println(modeletelephoneCreationDTO);
 			catalogueService.createModele(modeletelephoneCreationDTO);
@@ -59,18 +67,35 @@ public class ModeleRestController {
 
 		} catch (ReferenceModeleExistanteException e) {
 			return ResponseEntity.ok(new MessageDTO("La réfèrence de ce télèphone existe déja dans l'inventaire"));
-			
-		}catch (ConstraintViolationException e) {
-			return ResponseEntity.ok(new MessageDTO("Les données entrées pour le télèphone sont erronées \n"+e.getMessage()));
-			
-		}catch(Exception e) {
+
+		} catch (ConstraintViolationException e) {
+			return ResponseEntity
+					.ok(new MessageDTO("Les données entrées pour le télèphone sont erronées \n" + e.getMessage()));
+
+		} catch (Exception e) {
 			return ResponseEntity.badRequest().build();
 		}
 	}
 
 	@RequestMapping(value = "/updatemodele", method = RequestMethod.PUT)
-	public Long updateModele(@RequestBody ModeletelephoneUpdatedDTO modeletelephoneUpdatedDTO) {
+	public Long updateModele(@Valid @RequestBody ModeletelephoneUpdatedDTO modeletelephoneUpdatedDTO) {
 		return catalogueService.updateModele(modeletelephoneUpdatedDTO);
+	}
+
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	public ResponseEntity<MessageDTO> handleValidationExceptions(MethodArgumentNotValidException ex) {
+
+		Map<String, String> errors = new HashMap<>();
+		ex.getBindingResult().getAllErrors().forEach((error) -> {
+			String fieldName = ((FieldError) error).getField();
+			String errorMessage = error.getDefaultMessage();
+			errors.put(fieldName, errorMessage);
+		});
+		MessageDTO messageDTO = new MessageDTO(errors.toString());
+
+		System.out.println(messageDTO);
+		return ResponseEntity.ok(messageDTO);
 	}
 
 }

@@ -21,7 +21,7 @@ public class ModeletelephoneCreationDTO {
 	private double prix;
 	
 	@Min(1)
-	private double TailleEcran;
+	private double tailleEcran;
 	
 	@Min(1)
 	private int capaciteStockage;
