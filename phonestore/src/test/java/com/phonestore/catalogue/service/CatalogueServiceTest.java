@@ -21,6 +21,7 @@ import com.phonestore.catalogue.dto.ModeletelephoneCreationDTO;
 import com.phonestore.catalogue.dto.ModeletelephoneDTO;
 import com.phonestore.catalogue.dto.ModeletelephoneUpdatedDTO;
 import com.phonestore.catalogue.exception.IdMarqueNonExistanteException;
+import com.phonestore.catalogue.exception.IdModeleNonExistantException;
 import com.phonestore.catalogue.exception.ReferenceModeleExistanteException;
 
 import jakarta.validation.ConstraintViolationException;
@@ -82,8 +83,9 @@ public class CatalogueServiceTest {
 	@Test
 	@Sql("/testsql/catalogue/modeletelephone/loadModeles.sql")
 	public void testFindModeleByIdNonExist() {
-		Optional<ModeletelephoneDTO> optModeleDTO = catalogueService.findModele(6L);
-		assertTrue(optModeleDTO.isEmpty());
+
+		
+		assertThrows(IdModeleNonExistantException.class, ()->catalogueService.findModele(6L));
 
 	}
 
@@ -102,8 +104,8 @@ public class CatalogueServiceTest {
 	@Sql("/testsql/catalogue/modeletelephone/loadModeles.sql")
 	public void testFindModeleByMarqueNonExist() {
 
-		List<ModeletelephoneDTO> res = catalogueService.findModeletelephonesByMarque(3L);
-		assertTrue(res.isEmpty());
+		
+		assertThrows(IdMarqueNonExistanteException.class, ()->catalogueService.findModeletelephonesByMarque(3L));
 
 	}
 	

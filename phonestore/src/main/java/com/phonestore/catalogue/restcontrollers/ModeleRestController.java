@@ -95,6 +95,9 @@ public class ModeleRestController {
 		}
 	}
 
+	/*
+	 * En cas d'erreur sur le formulaire ModeletelephoneUpdatedDTO les erreurs seront renvoyés dans un messageDTO
+	 */
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<MessageDTO> handleValidationExceptions(MethodArgumentNotValidException ex) {

@@ -50,7 +50,7 @@ public class CatalogueServiceImpl implements CatalogueService {
 		Optional<Marque> marque = marqueDAO.findById(marqueId);
 
 		if (marque.isEmpty())
-			return new ArrayList<ModeletelephoneDTO>();
+			throw new IdMarqueNonExistanteException();
 
 		return modeletelephoneDAO.findByMarque(marque.get()).stream().map(CatalogueDTOMapper::modeletelephoneToDTO)
 				.toList();
@@ -72,7 +72,13 @@ public class CatalogueServiceImpl implements CatalogueService {
 
 	@Override
 	public Optional<ModeletelephoneDTO> findModele(Long id) {
-		return modeletelephoneDAO.findById(id).map(CatalogueDTOMapper::modeletelephoneToDTO);
+		
+		Optional<Modeletelephone> modeletelephone=modeletelephoneDAO.findById(id);
+		
+		if(modeletelephone.isEmpty())
+			throw new IdModeleNonExistantException();
+		
+		return modeletelephone.map(CatalogueDTOMapper::modeletelephoneToDTO);
 	}
 
 	@Override
