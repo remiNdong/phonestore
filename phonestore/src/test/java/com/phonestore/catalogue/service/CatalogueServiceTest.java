@@ -12,12 +12,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import com.phonestore.DefaultContent;
 import com.phonestore.catalogue.dao.MarqueDAO;
-import com.phonestore.catalogue.domain.Marque;
-import com.phonestore.catalogue.domain.Modeletelephone;
+
 import com.phonestore.catalogue.dto.MarqueDTO;
 import com.phonestore.catalogue.dto.ModeletelephoneCreationDTO;
 import com.phonestore.catalogue.dto.ModeletelephoneDTO;

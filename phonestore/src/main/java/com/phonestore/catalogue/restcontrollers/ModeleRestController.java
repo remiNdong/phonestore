@@ -61,7 +61,6 @@ public class ModeleRestController {
 			@Valid @RequestBody ModeletelephoneCreationDTO modeletelephoneCreationDTO) {
 
 		try {
-			System.out.println(modeletelephoneCreationDTO);
 			catalogueService.createModele(modeletelephoneCreationDTO);
 			return ResponseEntity.ok(new MessageDTO("Création nouveau modèle réussie"));
 
@@ -78,8 +77,22 @@ public class ModeleRestController {
 	}
 
 	@RequestMapping(value = "/updatemodele", method = RequestMethod.PUT)
-	public Long updateModele(@Valid @RequestBody ModeletelephoneUpdatedDTO modeletelephoneUpdatedDTO) {
-		return catalogueService.updateModele(modeletelephoneUpdatedDTO);
+	public ResponseEntity<MessageDTO> updateModele(@Valid @RequestBody ModeletelephoneUpdatedDTO modeletelephoneUpdatedDTO) {
+		
+		try {
+			catalogueService.updateModele(modeletelephoneUpdatedDTO);
+			return ResponseEntity.ok(new MessageDTO("Modification du modèle réussie"));
+
+		} catch (ReferenceModeleExistanteException e) {
+			return ResponseEntity.ok(new MessageDTO("La réfèrence de ce télèphone existe déja dans l'inventaire"));
+
+		} catch (ConstraintViolationException e) {
+			return ResponseEntity
+					.ok(new MessageDTO("Les données entrées pour le télèphone sont erronées \n" + e.getMessage()));
+
+		} catch (Exception e) {
+			return ResponseEntity.badRequest().build();
+		}
 	}
 
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -92,9 +105,13 @@ public class ModeleRestController {
 			String errorMessage = error.getDefaultMessage();
 			errors.put(fieldName, errorMessage);
 		});
-		MessageDTO messageDTO = new MessageDTO(errors.toString());
+		
+		StringBuilder str=new StringBuilder();
+		for(String field : errors.keySet())
+			str.append(field+" : "+errors.get(field)+"\n");
+		
 
-		System.out.println(messageDTO);
+		MessageDTO messageDTO=new MessageDTO(str.toString());
 		return ResponseEntity.ok(messageDTO);
 	}
 
