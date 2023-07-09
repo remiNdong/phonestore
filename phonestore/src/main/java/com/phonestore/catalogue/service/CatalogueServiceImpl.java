@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.catalina.valves.rewrite.InternalRewriteMap.LowerCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -117,7 +118,7 @@ public class CatalogueServiceImpl implements CatalogueService {
 		List<Modeletelephone> list = modeletelephoneDAO.findByReference(modeletelephoneUpdatedDTO.getReference().toLowerCase());
 		for(Modeletelephone modele : list) {
 			
-			if((modeletelephoneUpdatedDTO.getReference().equals(modele.getReference()) && modeletelephoneUpdatedDTO.getId()!=modele.getId()))
+			if((modeletelephoneUpdatedDTO.getReference().toLowerCase().equals(modele.getReference()) && modeletelephoneUpdatedDTO.getId()!=modele.getId()))
 			throw new ReferenceModeleExistanteException();
 			
 			//on accepte que la reference soit deja presente que si on parle bien de maj du meme modele
