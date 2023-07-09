@@ -291,11 +291,28 @@ public class CatalogueServiceTest {
 	
 	@Test
 	@Sql("/testsql/catalogue/modeletelephone/loadModeles.sql")
+	public void testUpdateModeleSansModifRef() {
+
+		ModeletelephoneUpdatedDTO newModele=DefaultContent.defaultModeleUpdatedDTO();
+		newModele.setReference("iphone_14");
+		ModeletelephoneDTO modeleUpdated=catalogueService.findModele(newModele.getId()).get();
+		assertTrue(modeleUpdated.getReference().equals("iphone_14"));
+		assertTrue(modeleUpdated.getCapaciteStockage()==128);
+		
+		//on veut juste verifier qu'une mise a jour sans changement de reference fonctionne
+		
+	}
+	
+	@Test
+	@Sql("/testsql/catalogue/modeletelephone/loadModeles.sql")
 	public void testUpdateModeleDejaExistant() {
 
 		ModeletelephoneUpdatedDTO newModele=DefaultContent.defaultModeleUpdatedDTO();
 		newModele.setReference("iphone_14");
+		newModele.setId(2L);
 		assertThrows(ReferenceModeleExistanteException.class, ()->catalogueService.updateModele(newModele));
+		
+		//on veut verifier que la mise a jour d'un autre modele en metant une reference deja existante est interdite
 		
 		
 	}

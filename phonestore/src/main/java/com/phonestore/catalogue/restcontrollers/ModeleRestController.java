@@ -65,14 +65,13 @@ public class ModeleRestController {
 			return ResponseEntity.ok(new MessageDTO("Création nouveau modèle réussie"));
 
 		} catch (ReferenceModeleExistanteException e) {
-			return ResponseEntity.badRequest().body(new MessageDTO("La réfèrence de ce télèphone existe déja dans l'inventaire"));
+			return ResponseEntity.ok(new MessageDTO("La réfèrence de ce télèphone existe déja dans l'inventaire"));
 
 		} catch (ConstraintViolationException e) {
-			return ResponseEntity
-					.badRequest().body(new MessageDTO("Les données entrées pour le télèphone sont erronées \n" + e.getMessage()));
+			return ResponseEntity.ok(new MessageDTO("Les données entrées pour le télèphone sont erronées \n" + e.getMessage()));
 
 		} catch (Exception e) {
-			return ResponseEntity.badRequest().body(new MessageDTO("Les données entrées pour le télèphone sont erronées \n" + e.getMessage()));
+			return ResponseEntity.ok(new MessageDTO("Les données entrées pour le télèphone sont erronées \n" + e.getMessage()));
 		}
 	}
 
@@ -80,23 +79,29 @@ public class ModeleRestController {
 	public ResponseEntity<MessageDTO> updateModele(@Valid @RequestBody ModeletelephoneUpdatedDTO modeletelephoneUpdatedDTO) {
 		
 		try {
+			
+					
+			
 			catalogueService.updateModele(modeletelephoneUpdatedDTO);
+			
+			
 			return ResponseEntity.ok(new MessageDTO("Modification du modèle réussie"));
 
 		} catch (ReferenceModeleExistanteException e) {
-			return ResponseEntity.badRequest().body(new MessageDTO("La réfèrence de ce télèphone existe déja dans l'inventaire"));
+			return ResponseEntity.ok(new MessageDTO("La réfèrence de ce télèphone existe déja dans l'inventaire"));
 
 		} catch (ConstraintViolationException e) {
 			return ResponseEntity
-					.badRequest().body(new MessageDTO("Les données entrées pour le télèphone sont erronées \n" + e.getMessage()));
+					.ok(new MessageDTO("Les données entrées pour le télèphone sont erronées \n" + e.getMessage()));
 
 		} catch (Exception e) {
-			return ResponseEntity.badRequest().body(new MessageDTO("Les données entrées pour le télèphone sont erronées \n" + e.getMessage()));
+			return ResponseEntity.ok(new MessageDTO("Les données entrées pour le télèphone sont erronées \n" + e.getMessage()));
 		}
 	}
 
 	/*
-	 * En cas d'erreur sur le formulaire ModeletelephoneUpdatedDTO les erreurs seront renvoyés dans un messageDTO
+	 * En cas d'erreur sur le formulaire ModeletelephoneUpdatedDTO les erreurs
+	 * seront renvoyés dans un messageDTO
 	 */
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(MethodArgumentNotValidException.class)
@@ -108,13 +113,12 @@ public class ModeleRestController {
 			String errorMessage = error.getDefaultMessage();
 			errors.put(fieldName, errorMessage);
 		});
-		
-		StringBuilder str=new StringBuilder();
-		for(String field : errors.keySet())
-			str.append(field+" : "+errors.get(field)+"\n");
-		
 
-		MessageDTO messageDTO=new MessageDTO(str.toString());
+		StringBuilder str = new StringBuilder();
+		for (String field : errors.keySet())
+			str.append(field + " : " + errors.get(field) + "\n");
+
+		MessageDTO messageDTO = new MessageDTO(str.toString());
 		System.out.println(messageDTO.getMessage());
 		return ResponseEntity.ok(messageDTO);
 	}

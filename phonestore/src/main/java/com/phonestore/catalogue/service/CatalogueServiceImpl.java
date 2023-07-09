@@ -84,7 +84,7 @@ public class CatalogueServiceImpl implements CatalogueService {
 	@Override
 	public Long createModele(@Valid ModeletelephoneCreationDTO modeletelephoneCreationDTO) {
 
-		List<Modeletelephone> list = modeletelephoneDAO.findByReference(modeletelephoneCreationDTO.getReference());
+		List<Modeletelephone> list = modeletelephoneDAO.findByReference(modeletelephoneCreationDTO.getReference().toLowerCase());
 
 		if (!list.isEmpty())
 			throw new ReferenceModeleExistanteException();
@@ -114,9 +114,15 @@ public class CatalogueServiceImpl implements CatalogueService {
 		if (optMarque.isEmpty())
 			throw new IdMarqueNonExistanteException();
 
-		List<Modeletelephone> list = modeletelephoneDAO.findByReference(modeletelephoneUpdatedDTO.getReference());
-		if (!list.isEmpty())
+		List<Modeletelephone> list = modeletelephoneDAO.findByReference(modeletelephoneUpdatedDTO.getReference().toLowerCase());
+		for(Modeletelephone modele : list) {
+			
+			if((modeletelephoneUpdatedDTO.getReference().equals(modele.getReference()) && modeletelephoneUpdatedDTO.getId()!=modele.getId()))
 			throw new ReferenceModeleExistanteException();
+			
+			//on accepte que la reference soit deja presente que si on parle bien de maj du meme modele
+			
+		}
 
 		Modeletelephone modele = optModele.get();
 		modele.setReference(modeletelephoneUpdatedDTO.getReference().toLowerCase());
