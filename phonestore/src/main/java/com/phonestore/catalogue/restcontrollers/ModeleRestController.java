@@ -65,14 +65,14 @@ public class ModeleRestController {
 			return ResponseEntity.ok(new MessageDTO("Création nouveau modèle réussie"));
 
 		} catch (ReferenceModeleExistanteException e) {
-			return ResponseEntity.ok(new MessageDTO("La réfèrence de ce télèphone existe déja dans l'inventaire"));
+			return ResponseEntity.badRequest().body(new MessageDTO("La réfèrence de ce télèphone existe déja dans l'inventaire"));
 
 		} catch (ConstraintViolationException e) {
 			return ResponseEntity
-					.ok(new MessageDTO("Les données entrées pour le télèphone sont erronées \n" + e.getMessage()));
+					.badRequest().body(new MessageDTO("Les données entrées pour le télèphone sont erronées \n" + e.getMessage()));
 
 		} catch (Exception e) {
-			return ResponseEntity.badRequest().build();
+			return ResponseEntity.badRequest().body(new MessageDTO("Les données entrées pour le télèphone sont erronées \n" + e.getMessage()));
 		}
 	}
 
@@ -84,14 +84,14 @@ public class ModeleRestController {
 			return ResponseEntity.ok(new MessageDTO("Modification du modèle réussie"));
 
 		} catch (ReferenceModeleExistanteException e) {
-			return ResponseEntity.ok(new MessageDTO("La réfèrence de ce télèphone existe déja dans l'inventaire"));
+			return ResponseEntity.badRequest().body(new MessageDTO("La réfèrence de ce télèphone existe déja dans l'inventaire"));
 
 		} catch (ConstraintViolationException e) {
 			return ResponseEntity
-					.ok(new MessageDTO("Les données entrées pour le télèphone sont erronées \n" + e.getMessage()));
+					.badRequest().body(new MessageDTO("Les données entrées pour le télèphone sont erronées \n" + e.getMessage()));
 
 		} catch (Exception e) {
-			return ResponseEntity.badRequest().build();
+			return ResponseEntity.badRequest().body(new MessageDTO("Les données entrées pour le télèphone sont erronées \n" + e.getMessage()));
 		}
 	}
 
@@ -115,6 +115,7 @@ public class ModeleRestController {
 		
 
 		MessageDTO messageDTO=new MessageDTO(str.toString());
+		System.out.println(messageDTO.getMessage());
 		return ResponseEntity.ok(messageDTO);
 	}
 
