@@ -68,23 +68,23 @@ public class ModeleRestController {
 			return ResponseEntity.ok(new MessageDTO("La réfèrence de ce télèphone existe déja dans l'inventaire"));
 
 		} catch (ConstraintViolationException e) {
-			return ResponseEntity.ok(new MessageDTO("Les données entrées pour le télèphone sont erronées \n" + e.getMessage()));
+			return ResponseEntity
+					.ok(new MessageDTO("Les données entrées pour le télèphone sont erronées \n" + e.getMessage()));
 
 		} catch (Exception e) {
-			return ResponseEntity.ok(new MessageDTO("Les données entrées pour le télèphone sont erronées \n" + e.getMessage()));
+			return ResponseEntity
+					.ok(new MessageDTO("Les données entrées pour le télèphone sont erronées \n" + e.getMessage()));
 		}
 	}
 
 	@RequestMapping(value = "/updatemodele", method = RequestMethod.PUT)
-	public ResponseEntity<MessageDTO> updateModele(@Valid @RequestBody ModeletelephoneUpdatedDTO modeletelephoneUpdatedDTO) {
-		
+	public ResponseEntity<MessageDTO> updateModele(
+			@Valid @RequestBody ModeletelephoneUpdatedDTO modeletelephoneUpdatedDTO) {
+
 		try {
-			
-					
-			
+
 			catalogueService.updateModele(modeletelephoneUpdatedDTO);
-			
-			
+
 			return ResponseEntity.ok(new MessageDTO("Modification du modèle réussie"));
 
 		} catch (ReferenceModeleExistanteException e) {
@@ -95,7 +95,8 @@ public class ModeleRestController {
 					.ok(new MessageDTO("Les données entrées pour le télèphone sont erronées \n" + e.getMessage()));
 
 		} catch (Exception e) {
-			return ResponseEntity.ok(new MessageDTO("Les données entrées pour le télèphone sont erronées \n" + e.getMessage()));
+			return ResponseEntity
+					.ok(new MessageDTO("Les données entrées pour le télèphone sont erronées \n" + e.getMessage()));
 		}
 	}
 
@@ -116,9 +117,12 @@ public class ModeleRestController {
 
 		StringBuilder str = new StringBuilder();
 		for (String field : errors.keySet())
-			str.append(field + " : " + errors.get(field) + "\n");
+			str.append(field + " : " + errors.get(field) + "\n" + " - ");
 
-		MessageDTO messageDTO = new MessageDTO(str.toString());
+		String mess = str.toString();
+		String message = mess.substring(0, mess.length()-2);
+
+		MessageDTO messageDTO = new MessageDTO(message);
 		System.out.println(messageDTO.getMessage());
 		return ResponseEntity.ok(messageDTO);
 	}
