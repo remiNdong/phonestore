@@ -55,6 +55,22 @@ public class ModeleRestController {
 	public List<ModeletelephoneDTO> getModelesByCapaciteStockage(@PathVariable("capacite") int capacite) {
 		return catalogueService.findModeletelephonesByCapaciteStockage(capacite);
 	}
+	
+	@RequestMapping(value = "prix/{prixRange}", method = RequestMethod.GET)
+	public List<ModeletelephoneDTO> getModelesByPrix(@PathVariable("prixRange") int prixRange) {
+		
+		List<ModeletelephoneDTO> result=null;
+		if(prixRange==1)
+			result= catalogueService.findModeletelephonesByPrix(0, 500);
+		else if(prixRange==2)
+			result= catalogueService.findModeletelephonesByPrix(500, 1000);
+		else if (prixRange==3)
+			result= catalogueService.findModeletelephonesByPrix(1000, 10000);
+		
+		return result;
+			
+			
+	}
 
 	@RequestMapping(value = "/addmodele", method = RequestMethod.POST)
 	public ResponseEntity<MessageDTO> createModele(

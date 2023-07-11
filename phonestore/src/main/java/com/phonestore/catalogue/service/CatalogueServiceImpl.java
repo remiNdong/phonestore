@@ -138,4 +138,11 @@ public class CatalogueServiceImpl implements CatalogueService {
 
 	}
 
+	@Override
+	public List<ModeletelephoneDTO> findModeletelephonesByPrix(double min, double max) {
+		
+		return modeletelephoneDAO.findByPrix(min, max).stream()
+				.map(CatalogueDTOMapper::modeletelephoneToDTO).toList();
+	}
+
 }

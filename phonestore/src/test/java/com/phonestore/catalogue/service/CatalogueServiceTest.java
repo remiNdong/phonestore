@@ -144,6 +144,27 @@ public class CatalogueServiceTest {
 	
 	@Test
 	@Sql("/testsql/catalogue/modeletelephone/loadModeles.sql")
+	public void testFindModeletelephonesByPrix() {
+
+		List<ModeletelephoneDTO> res = catalogueService.findModeletelephonesByPrix(100, 900);
+		assertTrue(res.size() == 2);
+		assertTrue(res.get(0).getId() == 5);
+		assertTrue(res.get(1).getId() == 1); // on verifie que l'ordre de prix croissant par defaut est respecté
+
+	}
+	
+	@Test
+	@Sql("/testsql/catalogue/modeletelephone/loadModeles.sql")
+	public void testFindModeletelephonesByPrixNone() {
+
+		List<ModeletelephoneDTO> res = catalogueService.findModeletelephonesByPrix(2000, 3000);
+		assertTrue(res.size() == 0);
+		
+
+	}
+	
+	@Test
+	@Sql("/testsql/catalogue/modeletelephone/loadModeles.sql")
 	public void FindModeletelephonesByCapaciteStockageNonExist() {
 		
 	

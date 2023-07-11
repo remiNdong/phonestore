@@ -47,6 +47,12 @@ public interface CatalogueService {
 	 */
 	List<ModeletelephoneDTO> findModeletelephonesByCapaciteStockage(int capacite);
 	
+	
+	/*
+	 * renverra la liste des modeletelephoneDTO dans une certaine fourchette de prix par defaut par prix croissant
+	 */
+	List<ModeletelephoneDTO> findModeletelephonesByPrix(double min, double max);
+	
 	/*
 	 * creera un nouveau modele conforme aux contraintes et renverra son id
 	 */
