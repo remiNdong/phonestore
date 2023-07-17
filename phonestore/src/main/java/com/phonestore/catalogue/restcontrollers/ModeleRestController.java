@@ -41,7 +41,7 @@ public class ModeleRestController {
 		return catalogueService.findModeletelephones();
 	}
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/modele/{id}", method = RequestMethod.GET)
 	public ModeletelephoneDTO getModeleById(@PathVariable("id") Long id) {
 		return catalogueService.findModele(id).get();
 	}
