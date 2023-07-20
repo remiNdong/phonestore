@@ -50,6 +50,7 @@ public class SecurityConfig {
 		    .requestMatchers("/api/modeles/taille/**").permitAll()
 		    .requestMatchers("/api/modeles/capacite/**").permitAll()
 		    .requestMatchers("/api/modeles/prix/**").permitAll()
+		    .requestMatchers("/api/image/loadImage/**").permitAll()
 		    .requestMatchers("/api/modeles/addmodele").hasAnyAuthority("EMP")
 		    .requestMatchers("/api/modeles/updatemodele").hasAnyAuthority("EMP")
 		    
