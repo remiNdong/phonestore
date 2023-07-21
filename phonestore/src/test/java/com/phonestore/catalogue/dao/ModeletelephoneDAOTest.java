@@ -17,6 +17,7 @@ import com.phonestore.DefaultContent;
 import com.phonestore.TestDBConfig;
 import com.phonestore.catalogue.domain.Marque;
 import com.phonestore.catalogue.domain.Modeletelephone;
+import com.phonestore.catalogue.dto.ModeletelephoneDTO;
 
 import jakarta.persistence.EntityManager;
 
@@ -80,6 +81,25 @@ class ModeletelephoneDAOTest {
 		assertEquals(modele.get().getMarque(), marque);
 		assertEquals(modele.get().getImagePath(), "iphone_14.jpg");
 		assertEquals(modele.get().getPrix(), 869);
+
+	}
+	
+	@Test
+	@Sql("/testsql/catalogue/modeletelephone/loadModeles.sql")
+	public void findByReference() throws Exception {
+
+		Optional<Marque> optMarque = marqueDAO.findById(1L);
+		Marque marque = optMarque.get();
+
+		List<Modeletelephone> list = modeletelephoneDAO.findByReference("iphone_14");
+		assertTrue(list.size()==1);
+		Modeletelephone modele=list.get(0);
+		assertEquals(modele.getTailleEcran(), 6.1);
+		assertEquals(modele.getCapaciteStockage(), 128);
+		assertEquals(modele.getReference(), "iphone_14");
+		assertEquals(modele.getMarque(), marque);
+		assertEquals(modele.getImagePath(), "iphone_14.jpg");
+		assertEquals(modele.getPrix(), 869);
 
 	}
 

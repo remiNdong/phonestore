@@ -144,6 +144,16 @@ public class CatalogueServiceTest {
 	
 	@Test
 	@Sql("/testsql/catalogue/modeletelephone/loadModeles.sql")
+	public void testFindModeletelephonesByReference() {
+
+		List<ModeletelephoneDTO> res = catalogueService.findModeletelephoneByReference("iphone_14");
+		assertTrue(res.size() == 1);
+		assertTrue(res.get(0).getId() == 1);
+
+	}
+	
+	@Test
+	@Sql("/testsql/catalogue/modeletelephone/loadModeles.sql")
 	public void testFindModeletelephonesByPrix() {
 
 		List<ModeletelephoneDTO> res = catalogueService.findModeletelephonesByPrix(100, 900);

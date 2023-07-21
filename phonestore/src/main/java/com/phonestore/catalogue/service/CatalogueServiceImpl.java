@@ -145,4 +145,10 @@ public class CatalogueServiceImpl implements CatalogueService {
 				.map(CatalogueDTOMapper::modeletelephoneToDTO).toList();
 	}
 
+	@Override
+	public List<ModeletelephoneDTO> findModeletelephoneByReference(String reference) {
+		return modeletelephoneDAO.findByReference(reference).stream()
+				.map(CatalogueDTOMapper::modeletelephoneToDTO).toList();
+	}
+
 }

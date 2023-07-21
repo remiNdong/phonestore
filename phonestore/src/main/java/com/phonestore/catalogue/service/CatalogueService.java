@@ -28,6 +28,11 @@ public interface CatalogueService {
 	List<ModeletelephoneDTO> findModeletelephones();
 	
 	/*
+	 * renverra la liste des modeletelephoneDTO portant une reference, en theorie il n'y en a que un
+	 */
+	List<ModeletelephoneDTO> findModeletelephoneByReference(String reference);
+	
+	/*
 	 * renverra un modeleDTO trouvé par son ID
 	 */
 	Optional<ModeletelephoneDTO> findModele(Long id);
