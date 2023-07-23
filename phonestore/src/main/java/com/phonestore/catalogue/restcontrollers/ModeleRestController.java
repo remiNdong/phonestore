@@ -65,7 +65,27 @@ public class ModeleRestController {
 		else if(prixRange==2)
 			result= catalogueService.findModeletelephonesByPrix(500, 1000);
 		else if (prixRange==3)
-			result= catalogueService.findModeletelephonesByPrix(1000, 10000);
+			result= catalogueService.findModeletelephonesByPrix(1000, 2000);
+		else if (prixRange==4)
+			result= catalogueService.findModeletelephonesByPrix(2000, 10000);
+		
+		return result;
+			
+			
+	}
+	
+	
+	
+	@RequestMapping(value = "tailleEcranRange/{tailleEcranRange}", method = RequestMethod.GET)
+	public List<ModeletelephoneDTO> getModelesByTailleEcranRange(@PathVariable("tailleEcranRange") int tailleEcranRange) {
+		
+		List<ModeletelephoneDTO> result=null;
+		if(tailleEcranRange==1)
+			result= catalogueService.findModeletelephonesByTailleEcranRange(0, 6);
+		else if(tailleEcranRange==2)
+			result= catalogueService.findModeletelephonesByTailleEcranRange(6, 7);
+		else if (tailleEcranRange==3)
+			result= catalogueService.findModeletelephonesByTailleEcranRange(7, 1000);
 		
 		return result;
 			
@@ -89,7 +109,7 @@ public class ModeleRestController {
 
 		} catch (Exception e) {
 			return ResponseEntity
-					.ok(new MessageDTO("Les données entrées pour le télèphone sont erronées \n" + e.getMessage()));
+					.ok(new MessageDTO("Un problème technique est survenu : \n" + e.getMessage()));
 		}
 	}
 
@@ -112,7 +132,7 @@ public class ModeleRestController {
 
 		} catch (Exception e) {
 			return ResponseEntity
-					.ok(new MessageDTO("Les données entrées pour le télèphone sont erronées \n" + e.getMessage()));
+					.ok(new MessageDTO("Un problème technique est survenu : \n" + e.getMessage()));
 		}
 	}
 

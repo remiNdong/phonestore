@@ -175,6 +175,20 @@ public class CatalogueServiceTest {
 	
 	@Test
 	@Sql("/testsql/catalogue/modeletelephone/loadModeles.sql")
+	public void testFindModeletelephonesByTailleEcranRange() {
+
+		List<ModeletelephoneDTO> res = catalogueService.findModeletelephonesByTailleEcranRange(6, 7);
+		assertTrue(res.size() == 5);
+		res = catalogueService.findModeletelephonesByTailleEcranRange(0, 6);
+		assertTrue(res.size() == 0);
+		res = catalogueService.findModeletelephonesByTailleEcranRange(7, 10);
+		assertTrue(res.size() == 0);
+		
+
+	}
+	
+	@Test
+	@Sql("/testsql/catalogue/modeletelephone/loadModeles.sql")
 	public void FindModeletelephonesByCapaciteStockageNonExist() {
 		
 	

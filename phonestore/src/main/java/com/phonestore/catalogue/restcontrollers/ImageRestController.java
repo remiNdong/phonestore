@@ -55,6 +55,12 @@ public class ImageRestController {
 		Files.write(Paths.get(System.getProperty("user.home") + "/images/" + modeletelephoneDTO.getImagePath()), file.getBytes());
 
 	}
+	
+	@RequestMapping(value = "/delete/{imagePath}", method = RequestMethod.DELETE)
+	public void deleteImage(@PathVariable("imagePath") String  imagePath) throws IOException {
+		
+		Files.delete(Paths.get(System.getProperty("user.home") + "/images/"+imagePath));
+	}
 
 
 }

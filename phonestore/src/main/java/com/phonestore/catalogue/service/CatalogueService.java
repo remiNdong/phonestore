@@ -59,6 +59,11 @@ public interface CatalogueService {
 	List<ModeletelephoneDTO> findModeletelephonesByPrix(double min, double max);
 	
 	/*
+	 * renverra la liste des modeletelephoneDTO dans une certaine fourchette de taille d'ecran par defaut par prix croissant
+	 */
+	List<ModeletelephoneDTO> findModeletelephonesByTailleEcranRange(double min, double max);
+	
+	/*
 	 * creera un nouveau modele conforme aux contraintes et renverra son id
 	 */
 	Long createModele(@Valid ModeletelephoneCreationDTO modeletelephoneCreationDTO);

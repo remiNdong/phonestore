@@ -83,7 +83,7 @@ class ModeletelephoneDAOTest {
 		assertEquals(modele.get().getPrix(), 869);
 
 	}
-	
+
 	@Test
 	@Sql("/testsql/catalogue/modeletelephone/loadModeles.sql")
 	public void findByReference() throws Exception {
@@ -92,8 +92,8 @@ class ModeletelephoneDAOTest {
 		Marque marque = optMarque.get();
 
 		List<Modeletelephone> list = modeletelephoneDAO.findByReference("iphone_14");
-		assertTrue(list.size()==1);
-		Modeletelephone modele=list.get(0);
+		assertTrue(list.size() == 1);
+		Modeletelephone modele = list.get(0);
 		assertEquals(modele.getTailleEcran(), 6.1);
 		assertEquals(modele.getCapaciteStockage(), 128);
 		assertEquals(modele.getReference(), "iphone_14");
@@ -208,7 +208,25 @@ class ModeletelephoneDAOTest {
 		assertTrue(list.contains(modele1));
 
 	}
-	
+
+	/**
+	 * tests if findByTailleEcranRange returns the right Modeletelephone
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	@Sql("/testsql/catalogue/modeletelephone/loadModeles.sql")
+	public void findByTailleEcranRange() throws Exception {
+
+		List<Modeletelephone> list = modeletelephoneDAO.findByTailleEcranRange(6, 7);
+		assertEquals(list.size(), 5);
+		list = modeletelephoneDAO.findByTailleEcranRange(0, 6);
+		assertEquals(list.size(), 0);
+		list = modeletelephoneDAO.findByTailleEcranRange(7, 10);
+		assertEquals(list.size(), 0);
+
+	}
+
 	/**
 	 * tests if findByPrixAsc the right order
 	 * 
@@ -220,7 +238,7 @@ class ModeletelephoneDAOTest {
 
 		Optional<Modeletelephone> optmodele = modeletelephoneDAO.findById(5L);
 		Modeletelephone moinsCher = optmodele.get();
-		 optmodele = modeletelephoneDAO.findById(3L);
+		optmodele = modeletelephoneDAO.findById(3L);
 		Modeletelephone plusCher = optmodele.get();
 
 		List<Modeletelephone> list = modeletelephoneDAO.findByPrixAsc();
@@ -229,7 +247,6 @@ class ModeletelephoneDAOTest {
 		assertTrue(list.get(4).equals(plusCher));
 
 	}
-
 
 	/**
 	 * tests if save functions
@@ -274,7 +291,7 @@ class ModeletelephoneDAOTest {
 		assertFalse(list.contains(newModele));
 
 	}
-	
+
 	/**
 	 * tests if update functions
 	 * 
@@ -286,7 +303,7 @@ class ModeletelephoneDAOTest {
 
 		Optional<Modeletelephone> optModele = modeletelephoneDAO.findById(5L);
 		Modeletelephone newModele = optModele.get();
-		
+
 		newModele.setCapaciteStockage(128);
 
 		modeletelephoneDAO.save(newModele);
@@ -294,8 +311,8 @@ class ModeletelephoneDAOTest {
 
 		optModele = modeletelephoneDAO.findById(5L);
 		Modeletelephone updatedModele = optModele.get();
-		
-		assertTrue(updatedModele.getCapaciteStockage()==128);
+
+		assertTrue(updatedModele.getCapaciteStockage() == 128);
 
 	}
 

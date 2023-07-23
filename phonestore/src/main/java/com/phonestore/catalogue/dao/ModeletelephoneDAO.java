@@ -25,6 +25,9 @@ public interface ModeletelephoneDAO extends JpaRepository<Modeletelephone, Long>
 	@Query("select m from Modeletelephone m where m.prix between :min and :max order by m.prix ASC")
 	List<Modeletelephone> findByPrix(@Param("min")double min , @Param("max")double max);
 	
+	@Query("select m from Modeletelephone m where m.tailleEcran between :min and :max order by m.prix ASC")
+	List<Modeletelephone> findByTailleEcranRange(@Param("min")double min , @Param("max")double max);
+	
 	@Query("select m from Modeletelephone m order by m.prix ASC")
 	List<Modeletelephone> findByPrixAsc();
 

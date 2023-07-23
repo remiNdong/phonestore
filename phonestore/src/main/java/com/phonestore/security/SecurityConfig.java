@@ -48,10 +48,12 @@ public class SecurityConfig {
 		    .requestMatchers("/api/modeles").permitAll()
 		    .requestMatchers("/api/modeles/modele/**").permitAll()
 		    .requestMatchers("/api/modeles/taille/**").permitAll()
+		    .requestMatchers("/api/modeles/tailleEcranRange/**").permitAll()
 		    .requestMatchers("/api/modeles/capacite/**").permitAll()
 		    .requestMatchers("/api/modeles/prix/**").permitAll()
 		    .requestMatchers("/api/image/loadImage/**").permitAll()
 		    .requestMatchers("/api/image/uploadImage/**").hasAnyAuthority("EMP")
+		    .requestMatchers("/api/image/delete/**").hasAnyAuthority("EMP")
 		    .requestMatchers("/api/modeles/addmodele").hasAnyAuthority("EMP")
 		    .requestMatchers("/api/modeles/updatemodele").hasAnyAuthority("EMP")
 		    

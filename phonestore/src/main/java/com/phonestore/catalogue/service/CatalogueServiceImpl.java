@@ -151,4 +151,11 @@ public class CatalogueServiceImpl implements CatalogueService {
 				.map(CatalogueDTOMapper::modeletelephoneToDTO).toList();
 	}
 
+	@Override
+	public List<ModeletelephoneDTO> findModeletelephonesByTailleEcranRange(double min, double max) {
+
+		return modeletelephoneDAO.findByTailleEcranRange(min, max).stream()
+				.map(CatalogueDTOMapper::modeletelephoneToDTO).toList();
+	}
+
 }
