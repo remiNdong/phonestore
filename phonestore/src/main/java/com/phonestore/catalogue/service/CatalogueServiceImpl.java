@@ -1,23 +1,25 @@
 package com.phonestore.catalogue.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.apache.catalina.valves.rewrite.InternalRewriteMap.LowerCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
+import com.phonestore.catalogue.dao.AssociationmodelereparationDAO;
 import com.phonestore.catalogue.dao.MarqueDAO;
 import com.phonestore.catalogue.dao.ModeletelephoneDAO;
+import com.phonestore.catalogue.dao.ReparationDAO;
 import com.phonestore.catalogue.domain.Marque;
 import com.phonestore.catalogue.domain.Modeletelephone;
+import com.phonestore.catalogue.dto.AssociationmodelereparationDTO;
 import com.phonestore.catalogue.dto.MarqueDTO;
 import com.phonestore.catalogue.dto.ModeletelephoneCreationDTO;
 import com.phonestore.catalogue.dto.ModeletelephoneDTO;
 import com.phonestore.catalogue.dto.ModeletelephoneUpdatedDTO;
+import com.phonestore.catalogue.dto.ReparationDTO;
 import com.phonestore.catalogue.exception.IdMarqueNonExistanteException;
 import com.phonestore.catalogue.exception.IdModeleNonExistantException;
 import com.phonestore.catalogue.exception.ReferenceModeleExistanteException;
@@ -34,10 +36,21 @@ public class CatalogueServiceImpl implements CatalogueService {
 
 	@Autowired
 	MarqueDAO marqueDAO;
+	
+	@Autowired
+	ReparationDAO reparationDAO;
+	
+	@Autowired
+	AssociationmodelereparationDAO associationmodelereparationDAO;
 
 	@Override
 	public List<MarqueDTO> findMarques() {
 		return marqueDAO.findAll().stream().map(CatalogueDTOMapper::marqueToDTO).toList();
+	}
+	
+	@Override
+	public List<ReparationDTO> findReparations() {
+		return reparationDAO.findAll().stream().map(CatalogueDTOMapper::reparationToDTO).toList();
 	}
 
 	@Override
@@ -157,5 +170,19 @@ public class CatalogueServiceImpl implements CatalogueService {
 		return modeletelephoneDAO.findByTailleEcranRange(min, max).stream()
 				.map(CatalogueDTOMapper::modeletelephoneToDTO).toList();
 	}
+
+	@Override
+	public List<AssociationmodelereparationDTO> findAssociationmodelereparationByModele(Long modeletephone_id) {
+		
+		Optional<Modeletelephone> modeletephone = modeletelephoneDAO.findById(modeletephone_id);
+
+		if (modeletephone.isEmpty())
+			throw new IdModeleNonExistantException();
+
+		return associationmodelereparationDAO.findByModeletelephone(modeletephone.get()).stream().map(CatalogueDTOMapper::associationmodelereparationToDTO)
+				.toList();
+	}
+
+
 
 }

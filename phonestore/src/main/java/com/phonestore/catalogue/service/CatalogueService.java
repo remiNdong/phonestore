@@ -4,9 +4,11 @@ import java.util.List;
 import java.util.Optional;
 
 import com.phonestore.catalogue.domain.Modeletelephone;
+import com.phonestore.catalogue.dto.AssociationmodelereparationDTO;
 import com.phonestore.catalogue.dto.MarqueDTO;
 import com.phonestore.catalogue.dto.ModeletelephoneDTO;
 import com.phonestore.catalogue.dto.ModeletelephoneUpdatedDTO;
+import com.phonestore.catalogue.dto.ReparationDTO;
 import com.phonestore.catalogue.dto.ModeletelephoneCreationDTO;
 import jakarta.validation.Valid;
 
@@ -20,6 +22,17 @@ public interface CatalogueService {
 	 * et trier par marque
 	 */
 	List<MarqueDTO> findMarques();
+	
+	
+	/*
+	 * renvoie la liste des reparationDTO
+	 */
+	List<ReparationDTO> findReparations();
+	
+	/*
+	 * renvoie la liste des associationsmodelereparationDTO pour un modele
+	 */
+	List<AssociationmodelereparationDTO> findAssociationmodelereparationByModele(Long modeletephone_id);
 	
 	
 	/*

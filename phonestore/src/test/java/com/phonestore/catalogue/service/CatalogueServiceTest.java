@@ -15,11 +15,13 @@ import org.springframework.test.context.jdbc.Sql;
 
 import com.phonestore.DefaultContent;
 import com.phonestore.catalogue.dao.MarqueDAO;
-
+import com.phonestore.catalogue.domain.Associationmodelereparation;
+import com.phonestore.catalogue.dto.AssociationmodelereparationDTO;
 import com.phonestore.catalogue.dto.MarqueDTO;
 import com.phonestore.catalogue.dto.ModeletelephoneCreationDTO;
 import com.phonestore.catalogue.dto.ModeletelephoneDTO;
 import com.phonestore.catalogue.dto.ModeletelephoneUpdatedDTO;
+import com.phonestore.catalogue.dto.ReparationDTO;
 import com.phonestore.catalogue.exception.IdMarqueNonExistanteException;
 import com.phonestore.catalogue.exception.IdModeleNonExistantException;
 import com.phonestore.catalogue.exception.ReferenceModeleExistanteException;
@@ -35,6 +37,8 @@ public class CatalogueServiceTest {
 	
 	@Autowired 
 	MarqueDAO marqueDAO;
+	
+	
 
 	@Test
 	@Sql("/testsql/empty.sql")
@@ -49,6 +53,38 @@ public class CatalogueServiceTest {
 		List<MarqueDTO> res = catalogueService.findMarques();
 		assertTrue(res.size() == 2);
 	}
+	
+	@Test
+	@Sql("/testsql/empty.sql")
+	public void testFindReparationsEmpty() {
+		List<ReparationDTO> res = catalogueService.findReparations();
+		assertTrue(res.isEmpty(), "Reparations : Sould return empty when not found");
+	}
+
+	@Test
+	@Sql("/testsql/catalogue/reparation/loadReparation.sql")
+	public void testFindReparations() {
+		List<ReparationDTO> res = catalogueService.findReparations();
+		assertTrue(res.size() == 6);
+	}
+	
+	@Test
+	@Sql("/testsql/catalogue/association/createTablesNoInserts.sql")
+	public void testFindAssociationsEmpty() {
+		List<AssociationmodelereparationDTO> res = catalogueService.findAssociationmodelereparationByModele(1L);
+		assertTrue(res.isEmpty(), "Reparations : Sould return empty when not found");
+	}
+
+	@Test
+	@Sql("/testsql/catalogue/association/loadAssociations.sql")
+	public void testFindAssociations() {
+		
+		
+		List<AssociationmodelereparationDTO> res = catalogueService.findAssociationmodelereparationByModele(1L);
+		assertTrue(res.size() == 2);
+	}
+	
+	
 
 	@Test
 	@Sql("/testsql/empty.sql")

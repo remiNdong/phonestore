@@ -45,6 +45,8 @@ public class SecurityConfig {
 	          	          
 		    .authorizeHttpRequests()
 		    .requestMatchers("/api/marques/**").permitAll()
+		    .requestMatchers("/api/reparations/**").permitAll()
+		    .requestMatchers("/api/associations/liste/**").permitAll()
 		    .requestMatchers("/api/modeles").permitAll()
 		    .requestMatchers("/api/modeles/modele/**").permitAll()
 		    .requestMatchers("/api/modeles/taille/**").permitAll()

@@ -11,10 +11,6 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -25,43 +21,18 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Modeletelephone {
-	
-	
+public class Reparation {
+
 	@Id
-	@GeneratedValue (strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@NotNull
 	private Long id;
-	
+
 	@Column(unique = true)
 	@NotNull
-	private String reference;
-	
-	@Column
-	@NotNull
-	private double prix;
-	
-	@Column
-	@NotNull
-	private double tailleEcran;
-	
-	@Column
-	@NotNull
-	private int capaciteStockage;
-	
-	@Column
-	@NotNull
-	private String imagePath;
-	
-	@ManyToOne
-	Marque marque;
-	
-	
-	 
-	 @OneToMany(mappedBy = "modeletelephone",cascade=CascadeType.ALL, fetch = FetchType.EAGER)
-		List<Associationmodelereparation> associations;
+	private String nom;
 
-
-	
+	@OneToMany(mappedBy = "reparation", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	List<Associationmodelereparation> associations;
 
 }
