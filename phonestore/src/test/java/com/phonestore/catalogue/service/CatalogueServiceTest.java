@@ -84,6 +84,15 @@ public class CatalogueServiceTest {
 		assertTrue(res.size() == 2);
 	}
 	
+	@Test
+	@Sql("/testsql/catalogue/association/loadAssociations.sql")
+	public void testFindAssociationsModeleIdNonExist() {
+
+		
+		assertThrows(IdModeleNonExistantException.class, ()->catalogueService.findAssociationmodelereparationByModele(6L));
+
+	}
+	
 	
 
 	@Test

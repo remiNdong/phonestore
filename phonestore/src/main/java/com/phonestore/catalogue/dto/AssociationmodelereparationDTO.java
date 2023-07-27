@@ -10,9 +10,11 @@ import lombok.NoArgsConstructor;
 public class AssociationmodelereparationDTO {
 	
 	private Long id;
-	private Long idModeleTelephone;
+	private Long idModeletelephone;
 	private Long idReparation;
 	private String nomReparation;
+	private String nomModele;
+	private String marqueModele;
 	private double prix;
 
 }

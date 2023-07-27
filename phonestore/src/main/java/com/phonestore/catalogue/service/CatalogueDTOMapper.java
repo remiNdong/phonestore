@@ -37,7 +37,7 @@ public class CatalogueDTOMapper {
 	public static AssociationmodelereparationDTO associationmodelereparationToDTO(Associationmodelereparation associationmodelereparation) {
 		
 
-		return new AssociationmodelereparationDTO(associationmodelereparation.getId(), associationmodelereparation.getModeletelephone().getId(), associationmodelereparation.getReparation().getId(),associationmodelereparation.getReparation().getNom(), associationmodelereparation.getPrix());
+		return new AssociationmodelereparationDTO(associationmodelereparation.getId(), associationmodelereparation.getModeletelephone().getId(), associationmodelereparation.getReparation().getId(),associationmodelereparation.getReparation().getNom(),associationmodelereparation.getModeletelephone().getReference(),associationmodelereparation.getModeletelephone().getMarque().getNom(), associationmodelereparation.getPrix());
 
 	}
 	
