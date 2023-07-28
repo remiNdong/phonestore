@@ -30,6 +30,11 @@ public interface CatalogueService {
 	List<ReparationDTO> findReparations();
 	
 	/*
+	 * renvoie la liste des reparationDTO qui ne sont pas encore pratiquees sur un modele
+	 */
+	List<ReparationDTO> findReparationsNonPratiquees(Long modeletephone_id);
+	
+	/*
 	 * renvoie la liste des associationsmodelereparationDTO pour un modele
 	 */
 	List<AssociationmodelereparationDTO> findAssociationmodelereparationByModele(Long modeletephone_id);
@@ -86,6 +91,7 @@ public interface CatalogueService {
 	 */
 	Long updateModele(@Valid ModeletelephoneUpdatedDTO modeletelephoneUpdatedDTO);
 	
+
 	
 	
 

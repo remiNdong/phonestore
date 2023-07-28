@@ -52,6 +52,11 @@ public class CatalogueServiceImpl implements CatalogueService {
 	public List<ReparationDTO> findReparations() {
 		return reparationDAO.findAll().stream().map(CatalogueDTOMapper::reparationToDTO).toList();
 	}
+	
+	@Override
+	public List<ReparationDTO> findReparationsNonPratiquees(Long modeletephone_id) {
+		return reparationDAO.findReparationNonPratiquees(modeletephone_id).stream().map(CatalogueDTOMapper::reparationToDTO).toList();
+	}
 
 	@Override
 	public List<ModeletelephoneDTO> findModeletelephones() {
@@ -182,6 +187,8 @@ public class CatalogueServiceImpl implements CatalogueService {
 		return associationmodelereparationDAO.findByModeletelephone(modeletephone.get()).stream().map(CatalogueDTOMapper::associationmodelereparationToDTO)
 				.toList();
 	}
+
+	
 
 
 

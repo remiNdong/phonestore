@@ -67,6 +67,12 @@ public class CatalogueServiceTest {
 		List<ReparationDTO> res = catalogueService.findReparations();
 		assertTrue(res.size() == 6);
 	}
+	@Test
+	@Sql("/testsql/catalogue/association/loadAssociations.sql")
+	public void testFindReparationsNonPratiquees() {
+		List<ReparationDTO> res = catalogueService.findReparationsNonPratiquees(1L);
+		assertTrue(res.size() == 4);
+	}
 	
 	@Test
 	@Sql("/testsql/catalogue/association/createTablesNoInserts.sql")

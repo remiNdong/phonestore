@@ -88,6 +88,18 @@ public class ReparationDAOTest {
 		assertTrue(reparation.isEmpty());
 	}
 	
+	/**
+	 * tests if findByReparationNonPratiquees returns the right number of Reparation
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	@Sql("/testsql/catalogue/association/loadAssociations.sql")
+	public void findByReparationNonPratiquees() throws Exception {
+		List<Reparation> list = reparationDAO.findReparationNonPratiquees(1L);
+
+		assertEquals(4, list.size());
+	}
 	
 
 }

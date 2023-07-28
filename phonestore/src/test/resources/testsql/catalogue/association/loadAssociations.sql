@@ -21,6 +21,6 @@ insert into reparation values(5,"remplacement micro");
 insert into reparation values(6,"remplacement haut parleur");
 
 
-insert into associationmodelereparation values(1,1,2,130);
-insert into associationmodelereparation values(2,1,1,328);
+insert into associationmodelereparation values(1,1,2,130,1);
+insert into associationmodelereparation values(2,1,1,328,1);
 

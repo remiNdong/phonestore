@@ -16,5 +16,6 @@ public class AssociationmodelereparationDTO {
 	private String nomModele;
 	private String marqueModele;
 	private double prix;
+	private int praticable;
 
 }

@@ -38,4 +38,7 @@ public class Associationmodelereparation {
 	@Column
 	@NotNull
 	private double prix;
+	
+	@Column
+	private int praticable;
 }
