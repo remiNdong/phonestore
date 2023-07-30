@@ -1,6 +1,5 @@
 package com.phonestore.catalogue.service;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +17,7 @@ import com.phonestore.catalogue.dto.ModeletelephoneDTO;
 import com.phonestore.catalogue.dto.ReparationDTO;
 
 public class CatalogueDTOMapper {
-	
+
 	@Autowired
 	MarqueDAO marqueDAO;
 
@@ -27,49 +26,54 @@ public class CatalogueDTOMapper {
 		return new MarqueDTO(marque.getId(), marque.getNom());
 
 	}
-	
+
 	public static ReparationDTO reparationToDTO(Reparation reparation) {
 
 		return new ReparationDTO(reparation.getId(), reparation.getNom());
 
 	}
-	
-	public static AssociationmodelereparationDTO associationmodelereparationToDTO(Associationmodelereparation associationmodelereparation) {
-		
 
-		return new AssociationmodelereparationDTO(associationmodelereparation.getId(), associationmodelereparation.getModeletelephone().getId(), associationmodelereparation.getReparation().getId(),associationmodelereparation.getReparation().getNom(),associationmodelereparation.getModeletelephone().getReference(),associationmodelereparation.getModeletelephone().getMarque().getNom(), associationmodelereparation.getPrix(),associationmodelereparation.getPraticable());
+	public static AssociationmodelereparationDTO associationmodelereparationToDTO(
+			Associationmodelereparation associationmodelereparation) {
+
+		return new AssociationmodelereparationDTO(associationmodelereparation.getId(),
+				associationmodelereparation.getModeletelephone().getId(),
+				associationmodelereparation.getReparation().getId(),
+				associationmodelereparation.getReparation().getNom(),
+				associationmodelereparation.getModeletelephone().getReference(),
+				associationmodelereparation.getModeletelephone().getMarque().getNom(),
+				associationmodelereparation.getPrix(), associationmodelereparation.getPraticable());
 
 	}
-	
-	
 
+	public static Associationmodelereparation fromAssociationmodelereparationDTOtoAssociation(
+			AssociationmodelereparationDTO associationmodelereparationDTO) {
 
-public static ModeletelephoneDTO modeletelephoneToDTO(Modeletelephone modeletelephone) {
-		
-	MarqueDTO marqueDTO=new MarqueDTO(modeletelephone.getMarque().getId(), modeletelephone.getMarque().getNom());
-	
-	List<AssociationmodelereparationDTO> associationsDTO=new ArrayList<AssociationmodelereparationDTO>();
-	
-	for(Associationmodelereparation association : modeletelephone.getAssociations())
-		associationsDTO.add(associationmodelereparationToDTO(association));
-	
-	
-		return new ModeletelephoneDTO(modeletelephone.getId(), modeletelephone.getReference(), modeletelephone.getPrix(), modeletelephone.getTailleEcran(), modeletelephone.getCapaciteStockage(),
-				modeletelephone.getImagePath(),marqueDTO,associationsDTO);
-		
+		return new Associationmodelereparation(0L, null, null, associationmodelereparationDTO.getPrix(), 1);
+
 	}
 
+	public static ModeletelephoneDTO modeletelephoneToDTO(Modeletelephone modeletelephone) {
 
-public static Modeletelephone fromDTOtoModeletelephone(ModeletelephoneCreationDTO modeletelephoneCreationDTO) {
-	
-	
-	return new Modeletelephone(0L, modeletelephoneCreationDTO.getReference().toLowerCase(), modeletelephoneCreationDTO.getPrix(), modeletelephoneCreationDTO.getTailleEcran(), 
-			modeletelephoneCreationDTO.getCapaciteStockage(), modeletelephoneCreationDTO.getReference().toLowerCase()+".jpg", null,null);
-}
+		MarqueDTO marqueDTO = new MarqueDTO(modeletelephone.getMarque().getId(), modeletelephone.getMarque().getNom());
 
+		List<AssociationmodelereparationDTO> associationsDTO = new ArrayList<AssociationmodelereparationDTO>();
 
+		for (Associationmodelereparation association : modeletelephone.getAssociations())
+			associationsDTO.add(associationmodelereparationToDTO(association));
 
+		return new ModeletelephoneDTO(modeletelephone.getId(), modeletelephone.getReference(),
+				modeletelephone.getPrix(), modeletelephone.getTailleEcran(), modeletelephone.getCapaciteStockage(),
+				modeletelephone.getImagePath(), marqueDTO, associationsDTO);
 
+	}
 
+	public static Modeletelephone fromDTOtoModeletelephone(ModeletelephoneCreationDTO modeletelephoneCreationDTO) {
+
+		return new Modeletelephone(modeletelephoneCreationDTO.getId(), modeletelephoneCreationDTO.getReference().toLowerCase(),
+				modeletelephoneCreationDTO.getPrix(), modeletelephoneCreationDTO.getTailleEcran(),
+				modeletelephoneCreationDTO.getCapaciteStockage(),
+				modeletelephoneCreationDTO.getReference().toLowerCase() + ".jpg", null, null);
+	}
 
 }

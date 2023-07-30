@@ -1,6 +1,7 @@
 package com.phonestore;
 
 import com.phonestore.catalogue.domain.Modeletelephone;
+import com.phonestore.catalogue.dto.AssociationmodelereparationDTO;
 import com.phonestore.catalogue.dto.MarqueDTO;
 import com.phonestore.catalogue.dto.ModeletelephoneCreationDTO;
 import com.phonestore.catalogue.dto.ModeletelephoneUpdatedDTO;
@@ -39,6 +40,16 @@ public class DefaultContent {
 
 		return new ModeletelephoneUpdatedDTO(1L, "iphone_SE", 559, 4.7, 64, defaultMarqueDTO());
 
+	}
+	
+	public static AssociationmodelereparationDTO defaultAssociationmodelereparationDTO() {
+		
+		return new AssociationmodelereparationDTO(0L, 2L, 3L, "remplacement caméra avant", "iphone_13_pro", "APPLE", 229, 1);
+	}
+	
+	public static AssociationmodelereparationDTO defaultAssociationUpdatedmodelereparationDTO() {
+		
+		return new AssociationmodelereparationDTO(1L, 1L, 2L, "remplacement batterie", "iphone_14", "APPLE", 130, 1);
 	}
 	
 	

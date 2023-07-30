@@ -1,5 +1,7 @@
 package com.phonestore.catalogue.service;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -22,8 +24,11 @@ import com.phonestore.catalogue.dto.ModeletelephoneCreationDTO;
 import com.phonestore.catalogue.dto.ModeletelephoneDTO;
 import com.phonestore.catalogue.dto.ModeletelephoneUpdatedDTO;
 import com.phonestore.catalogue.dto.ReparationDTO;
+import com.phonestore.catalogue.exception.AssociationmodeletelephonereparationDejaExistanteException;
+import com.phonestore.catalogue.exception.AssociationmodeletelephonereparationNonExistanteException;
 import com.phonestore.catalogue.exception.IdMarqueNonExistanteException;
 import com.phonestore.catalogue.exception.IdModeleNonExistantException;
+import com.phonestore.catalogue.exception.IdReparationNonExistanteException;
 import com.phonestore.catalogue.exception.ReferenceModeleExistanteException;
 
 import jakarta.validation.ConstraintViolationException;
@@ -92,12 +97,117 @@ public class CatalogueServiceTest {
 	
 	@Test
 	@Sql("/testsql/catalogue/association/loadAssociations.sql")
+	public void testFindAssociationsById() {
+		
+		
+		AssociationmodelereparationDTO association = catalogueService.findAssociationById(1L).get();
+		assertEquals(1L, association.getIdModeletelephone(), "Id modeletelephone faux");
+		assertEquals(2L, association.getIdReparation(), "Id reparation faux");
+		assertEquals(130, association.getPrix(), "prix faux");
+		assertEquals(1, association.getPraticable(), "praticable faux");
+		
+	}
+	
+	@Test
+	@Sql("/testsql/catalogue/association/loadAssociations.sql")
 	public void testFindAssociationsModeleIdNonExist() {
 
 		
 		assertThrows(IdModeleNonExistantException.class, ()->catalogueService.findAssociationmodelereparationByModele(6L));
 
 	}
+	
+	@Test
+	@Sql("/testsql/catalogue/association/loadAssociations.sql")
+	public void testCreateAssociationsModeleIdNonExist() {
+		
+		AssociationmodelereparationDTO association=DefaultContent.defaultAssociationmodelereparationDTO();
+		association.setIdModeletelephone(6L);
+
+		
+		assertThrows(IdModeleNonExistantException.class, ()->catalogueService.createAssociation(association));
+
+	}
+	
+	
+	@Test
+	@Sql("/testsql/catalogue/association/loadAssociations.sql")
+	public void testCreateAssociationsReparationIdNonExist() {
+		
+		AssociationmodelereparationDTO association=DefaultContent.defaultAssociationmodelereparationDTO();
+		association.setIdReparation(9L);
+
+		
+		assertThrows(IdReparationNonExistanteException.class,()->catalogueService.createAssociation(association));
+
+	}
+	
+	@Test
+	@Sql("/testsql/catalogue/association/loadAssociations.sql")
+	public void testCreateAssociations() {
+		
+		AssociationmodelereparationDTO association=DefaultContent.defaultAssociationmodelereparationDTO();
+		catalogueService.createAssociation(association);
+
+		List<AssociationmodelereparationDTO> list=catalogueService.findAssociationmodelereparationByModele(2L);
+		assertEquals(1, list.size());
+
+	}
+	
+	@Test
+	@Sql("/testsql/catalogue/association/loadAssociations.sql")
+	public void testUpdateAssociationsModeleIdNonExist() {
+		
+		AssociationmodelereparationDTO association=DefaultContent.defaultAssociationUpdatedmodelereparationDTO();
+		association.setIdModeletelephone(6L);
+
+		
+		assertThrows(IdModeleNonExistantException.class, ()->catalogueService.updateAssociation(association));
+
+	}
+	
+	@Test
+	@Sql("/testsql/catalogue/association/loadAssociations.sql")
+	public void testUpdateAssociationsModeleReparationNonExist() {
+		
+		AssociationmodelereparationDTO association=DefaultContent.defaultAssociationUpdatedmodelereparationDTO();
+		association.setIdModeletelephone(3L);
+		association.setIdReparation(1L);
+		
+
+		
+		assertThrows(AssociationmodeletelephonereparationNonExistanteException.class, ()->catalogueService.updateAssociation(association));
+
+	}
+	
+	
+	@Test
+	@Sql("/testsql/catalogue/association/loadAssociations.sql")
+	public void testUpdateAssociationsReparationIdNonExist() {
+		
+		AssociationmodelereparationDTO association=DefaultContent.defaultAssociationUpdatedmodelereparationDTO();
+		association.setIdReparation(9L);
+		
+
+		
+		assertThrows(IdReparationNonExistanteException.class,()->catalogueService.updateAssociation(association));
+
+	}
+	
+	@Test
+	@Sql("/testsql/catalogue/association/loadAssociations.sql")
+	public void testUpdateAssociations() {
+		
+		AssociationmodelereparationDTO association=DefaultContent.defaultAssociationUpdatedmodelereparationDTO();
+		association.setPrix(250);
+		
+		catalogueService.updateAssociation(association);
+		
+		AssociationmodelereparationDTO associationUpdated=catalogueService.findAssociationById(association.getId()).get();
+
+		assertEquals(250,associationUpdated.getPrix(),"prix faux");
+	}
+	
 	
 	
 

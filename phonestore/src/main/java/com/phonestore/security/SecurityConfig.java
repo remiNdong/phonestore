@@ -58,7 +58,9 @@ public class SecurityConfig {
 		    .requestMatchers("/api/image/delete/**").hasAnyAuthority("EMP")
 		    .requestMatchers("/api/modeles/addmodele").hasAnyAuthority("EMP")
 		    .requestMatchers("/api/modeles/updatemodele").hasAnyAuthority("EMP")
-		    
+		    .requestMatchers("/api/associations/addassociation").hasAnyAuthority("EMP")
+		    .requestMatchers("/api/associations/updateassociation").hasAnyAuthority("EMP")
+		    .requestMatchers("/api/associations/one/**").hasAnyAuthority("EMP")
 		  
 		  /*
 		    .requestMatchers("/api/all/**").hasAnyAuthority("ADMIN","USER")

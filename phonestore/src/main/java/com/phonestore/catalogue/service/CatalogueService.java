@@ -91,7 +91,23 @@ public interface CatalogueService {
 	 */
 	Long updateModele(@Valid ModeletelephoneUpdatedDTO modeletelephoneUpdatedDTO);
 	
+	
 
+	/*
+	 * ajoutera un type de reparation possible dans les reparations pratiquées sur le modele
+	 */
+	Long createAssociation(@Valid AssociationmodelereparationDTO associationmodelereparationDTO);
+	
+	/*
+	 * mise a jour d'une association conforme aux contraintes et renverra son id
+	 */
+	Long updateAssociation(@Valid AssociationmodelereparationDTO associationmodelereparationDTO);
+	
+	
+	/*
+	 * renverra une association trouvé par son ID
+	 */
+	Optional<AssociationmodelereparationDTO> findAssociationById(Long id);
 	
 	
 
