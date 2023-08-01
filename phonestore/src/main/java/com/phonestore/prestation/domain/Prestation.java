@@ -1,6 +1,11 @@
-package com.phonestore.catalogue.domain;
+package com.phonestore.prestation.domain;
 
 
+
+import java.util.Date;
+
+import com.phonestore.administration.domain.User;
+import com.phonestore.catalogue.domain.Associationmodelereparation;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -9,6 +14,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,26 +25,41 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Associationmodelereparation {
+public class Prestation {
 	
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	@NotNull
 	private Long id;
 	
+	@ManyToOne
+	@NotNull
+	@JoinColumn(name = "user_id")
+	private User usager;
 	
 	@ManyToOne
-	@JoinColumn(name = "modeletelephone_id")
-	private Modeletelephone modeletelephone;
-
-	@ManyToOne
-	@JoinColumn(name = "reparation_id")
-	private Reparation reparation;
+	@NotNull
+	@JoinColumn(name = "association_id")
+	private Associationmodelereparation association;
+	
+	@Column
+	@NotBlank
+	String numeroSerie;
 	
 	@Column
 	@NotNull
-	private double prix;
+	double prix;
 	
 	@Column
-	private int praticable;
+	@NotNull
+	String status;
+	
+	@Column
+	private Date dateCreation;
+	
+	
+	
+	
+	
+
 }

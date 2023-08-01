@@ -18,9 +18,6 @@ import com.phonestore.catalogue.dto.ReparationDTO;
 
 public class CatalogueDTOMapper {
 
-	@Autowired
-	MarqueDAO marqueDAO;
-
 	public static MarqueDTO marqueToDTO(Marque marque) {
 
 		return new MarqueDTO(marque.getId(), marque.getNom());

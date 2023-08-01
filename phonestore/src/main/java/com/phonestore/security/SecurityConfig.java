@@ -61,6 +61,10 @@ public class SecurityConfig {
 		    .requestMatchers("/api/associations/addassociation").hasAnyAuthority("EMP")
 		    .requestMatchers("/api/associations/updateassociation").hasAnyAuthority("EMP")
 		    .requestMatchers("/api/associations/one/**").hasAnyAuthority("EMP")
+		    .requestMatchers("/api/usagers/all").hasAnyAuthority("EMP")
+		    .requestMatchers("/api/usagers/all/**").hasAnyAuthority("EMP")
+		    .requestMatchers("/api/usagers/one/**").hasAnyAuthority("EMP")
+		    .requestMatchers("/api/usagers/oneself/**").hasAnyAuthority("USER")
 		  
 		  /*
 		    .requestMatchers("/api/all/**").hasAnyAuthority("ADMIN","USER")
