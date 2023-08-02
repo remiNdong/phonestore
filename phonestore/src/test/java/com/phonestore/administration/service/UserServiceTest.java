@@ -152,5 +152,62 @@ public class UserServiceTest {
 
 	}
 	
+	@Test
+	@Sql("/testsql/loadUser.sql")
+	public void findUserDTOByNameList() throws Exception {
+		
+		
+		assertThrows(UserNonUsagerException.class, ()-> userService.findUserDTOByUsername("gerant@hotmail.fr"));
+		assertThrows(UserNonUsagerException.class, ()-> userService.findUserDTOByUsername("employe@hotmail.fr"));
+		
+
+
+		List<UserDTO> users = userService.findUserDTOByUsernameList("client@hotmail.fr");
+		assertTrue(users.size()==1);
+		UserDTO user=users.get(0);
+		assertEquals("Jack",user.getPrenom());
+		Role roleUser=roleDAO.findById(3L).get();
+		 List<Role>roles=user.getRoles();
+		assertEquals(roles.size(),1);
+		assertTrue(roles.contains(roleUser));
+		
+
+	}
+	
+	@Test
+	@Sql("/testsql/catalogue/prestation/loadPrestation.sql")
+	public void findUserDTOByName2List() throws Exception {
+
+
+		
+		
+		List<UserDTO> users = userService.findUserDTOByUsernameList("client@hotmail.fr");
+		assertTrue(users.size()==1);
+		UserDTO user=users.get(0);
+		assertEquals("Jack",user.getPrenom());
+		Role roleUser=roleDAO.findById(3L).get();
+		 List<Role>roles=user.getRoles();
+		assertEquals(roles.size(),1);
+		assertTrue(roles.contains(roleUser));
+		
+
+	}
+	
+	
+	@Test
+	@Sql("/testsql/catalogue/prestation/loadPrestation.sql")
+	public void findUserDTOByName2ListVide() throws Exception {
+
+
+		
+		
+		List<UserDTO> users = userService.findUserDTOByUsernameList("nobody@hotmail.fr");
+		assertTrue(users.size()==0);
+		
+
+	}
+	
+	
+	
 
 }

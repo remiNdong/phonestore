@@ -14,5 +14,7 @@ public interface UserService {
 	
 	List<UserDTO> findAll();
 	
+	List<UserDTO> findUserDTOByUsernameList(String username);
+	
 
 }

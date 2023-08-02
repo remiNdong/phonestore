@@ -26,8 +26,8 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/one/{username}", method = RequestMethod.GET)
-	public UserDTO getOneUsager(@PathVariable("username") String username) {
-		return userService.findUserDTOByUsername(username);
+	public List<UserDTO> getOneUsager(@PathVariable("username") String username) {
+		return userService.findUserDTOByUsernameList(username);
 	}
 	
 	@RequestMapping(value = "/oneself/{username}", method = RequestMethod.GET)
