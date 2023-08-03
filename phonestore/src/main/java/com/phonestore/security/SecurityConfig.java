@@ -64,7 +64,9 @@ public class SecurityConfig {
 		    .requestMatchers("/api/usagers/all").hasAnyAuthority("EMP")
 		    .requestMatchers("/api/usagers/all/**").hasAnyAuthority("EMP")
 		    .requestMatchers("/api/usagers/one/**").hasAnyAuthority("EMP")
-		    .requestMatchers("/api/usagers/oneself/**").hasAnyAuthority("USER")
+		    .requestMatchers("/api/usagers/oneself/**").hasAnyAuthority("EMP","USER")
+		    .requestMatchers("/api/prestations/list/**").hasAnyAuthority("EMP","USER")
+		    .requestMatchers("/api/prestations/one/**").hasAnyAuthority("EMP","USER")
 		  
 		  /*
 		    .requestMatchers("/api/all/**").hasAnyAuthority("ADMIN","USER")
