@@ -115,6 +115,25 @@ public class UserServiceTest {
 	}
 	
 	@Test
+	@Sql("/testsql/loadUser.sql")
+	public void findAllEmployes() throws Exception {
+		
+	
+		
+		List<UserDTO>list = userService.findAllEmployes();
+		assertTrue(list.size()==1);
+		UserDTO user=list.get(0);
+
+		assertEquals("John",user.getPrenom());
+		Role roleUser=roleDAO.findById(2L).get();
+		 List<Role>roles=user.getRoles();
+		assertEquals(roles.size(),1);
+		assertTrue(roles.contains(roleUser));
+		
+
+	}
+	
+	@Test
 	@Sql("/testsql/catalogue/prestation/loadPrestation.sql")
 	public void findAll2() throws Exception {
 		

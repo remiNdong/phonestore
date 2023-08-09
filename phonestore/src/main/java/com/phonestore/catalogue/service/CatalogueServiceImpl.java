@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
+import com.phonestore.administration.service.UserDTOMapper;
 import com.phonestore.catalogue.dao.AssociationmodelereparationDAO;
 import com.phonestore.catalogue.dao.MarqueDAO;
 import com.phonestore.catalogue.dao.ModeletelephoneDAO;
@@ -196,7 +197,23 @@ public class CatalogueServiceImpl implements CatalogueService {
 
 		return associationmodelereparationDAO.findByModeletelephone(modeletephone.get()).stream()
 				.map(CatalogueDTOMapper::associationmodelereparationToDTO).toList();
+		
 	}
+	
+
+	@Override
+	public List<AssociationmodelereparationDTO> findAssociationmodelereparationPratiqueesByModele(
+			Long modeletephone_id) {
+
+		Optional<Modeletelephone> modeletephone = modeletelephoneDAO.findById(modeletephone_id);
+
+		if (modeletephone.isEmpty())
+			throw new IdModeleNonExistantException();
+
+		return associationmodelereparationDAO.findByModeletelephone(modeletephone.get()).stream().filter(asso -> asso.getPraticable()==1)
+				.map(CatalogueDTOMapper::associationmodelereparationToDTO).toList();
+	}
+	
 
 	@Override
 	public Long createAssociation(@Valid AssociationmodelereparationDTO associationmodelereparationDTO) {
@@ -271,5 +288,6 @@ public class CatalogueServiceImpl implements CatalogueService {
 		return association.map(CatalogueDTOMapper::associationmodelereparationToDTO);
 		
 	}
+
 
 }

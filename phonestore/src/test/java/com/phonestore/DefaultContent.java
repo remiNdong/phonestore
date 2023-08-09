@@ -5,6 +5,7 @@ import com.phonestore.catalogue.dto.AssociationmodelereparationDTO;
 import com.phonestore.catalogue.dto.MarqueDTO;
 import com.phonestore.catalogue.dto.ModeletelephoneCreationDTO;
 import com.phonestore.catalogue.dto.ModeletelephoneUpdatedDTO;
+import com.phonestore.prestation.dto.PrestationCreationDTO;
 
 public class DefaultContent {
 
@@ -51,6 +52,35 @@ public class DefaultContent {
 		
 		return new AssociationmodelereparationDTO(1L, 1L, 2L, "remplacement batterie", "iphone_14", "APPLE", 130, 1);
 	}
+	
+	
+	public static PrestationCreationDTO defaultPrestationCreationDTO() {
+		
+		return new PrestationCreationDTO("client@hotmail.fr", 1L, 2L, "IPHONEXX14", 328, "CREE");
+	}
+	
+	public static PrestationCreationDTO defaultPrestationCreationDTOUserFaux() {
+		
+		return new PrestationCreationDTO("nobody@hotmail.fr", 1L, 2L, "IPHONEXX14", 328, "CREE");
+	}
+	
+public static PrestationCreationDTO defaultPrestationCreationDTOUserNonUsager() {
+		
+		return new PrestationCreationDTO("gerant@hotmail.fr", 1L, 2L, "IPHONEXX14", 328, "CREE");
+	}
+	
+	
+
+	public static PrestationCreationDTO defaultPrestationCreationDTOModeleFaux() {
+		
+		return new PrestationCreationDTO("client@hotmail.fr", 3000L, 2L, "IPHONEXX14", 328, "CREE");
+	}
+	
+public static PrestationCreationDTO defaultPrestationCreationDTOAssociationFausse() {
+		
+		return new PrestationCreationDTO("client@hotmail.fr", 1L, 3000L, "IPHONEXX14", 328, "CREE");
+	}
+	
 	
 	
 	

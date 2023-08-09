@@ -41,6 +41,13 @@ public class AssociationRestController {
 	 @RequestMapping(value = "/liste/{id}", method = RequestMethod.GET)
 		public List<AssociationmodelereparationDTO> getAssociationsByModele(@PathVariable("id") Long id) {
 			return catalogueService.findAssociationmodelereparationByModele(id);
+			
+		}
+	 
+	 @RequestMapping(value = "/listepratiquees/{id}", method = RequestMethod.GET)
+		public List<AssociationmodelereparationDTO> getAssociationsPratiqueesByModele(@PathVariable("id") Long id) {
+			return catalogueService.findAssociationmodelereparationPratiqueesByModele(id);
+			
 		}
 	 
 	 @RequestMapping(value = "/one/{id}", method = RequestMethod.GET)

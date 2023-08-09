@@ -91,4 +91,14 @@ public class UserServiceImpl implements UserService {
 		return list;
 	}
 
+	@Override
+	public List<UserDTO> findAllEmployes() {
+
+		Role roleUser = roleDAO.findById(2L).get();
+
+		return userDAO.findAll().stream().filter(u -> u.getRoles().contains(roleUser)).map(UserDTOMapper::UsertoUserDTO)
+				.toList();
+		
+	}
+
 }

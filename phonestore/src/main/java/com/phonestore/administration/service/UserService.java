@@ -16,5 +16,7 @@ public interface UserService {
 	
 	List<UserDTO> findUserDTOByUsernameList(String username);
 	
+	List<UserDTO> findAllEmployes();
+	
 
 }

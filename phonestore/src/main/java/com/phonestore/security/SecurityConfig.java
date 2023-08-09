@@ -47,6 +47,7 @@ public class SecurityConfig {
 		    .requestMatchers("/api/marques/**").permitAll()
 		    .requestMatchers("/api/reparations/**").permitAll()
 		    .requestMatchers("/api/associations/liste/**").permitAll()
+		    .requestMatchers("/api/associations/listepratiquees/**").permitAll()
 		    .requestMatchers("/api/modeles").permitAll()
 		    .requestMatchers("/api/modeles/modele/**").permitAll()
 		    .requestMatchers("/api/modeles/taille/**").permitAll()
@@ -62,11 +63,13 @@ public class SecurityConfig {
 		    .requestMatchers("/api/associations/updateassociation").hasAnyAuthority("EMP")
 		    .requestMatchers("/api/associations/one/**").hasAnyAuthority("EMP")
 		    .requestMatchers("/api/usagers/all").hasAnyAuthority("EMP")
+		    .requestMatchers("/api/usagers/allemployes").hasAnyAuthority("ADMIN")
 		    .requestMatchers("/api/usagers/all/**").hasAnyAuthority("EMP")
 		    .requestMatchers("/api/usagers/one/**").hasAnyAuthority("EMP")
 		    .requestMatchers("/api/usagers/oneself/**").hasAnyAuthority("EMP","USER")
 		    .requestMatchers("/api/prestations/list/**").hasAnyAuthority("EMP","USER")
 		    .requestMatchers("/api/prestations/one/**").hasAnyAuthority("EMP","USER")
+		    .requestMatchers("/api/prestations/addprestation").hasAnyAuthority("EMP")
 		  
 		  /*
 		    .requestMatchers("/api/all/**").hasAnyAuthority("ADMIN","USER")

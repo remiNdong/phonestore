@@ -25,6 +25,11 @@ public class UserController {
 		return userService.findAll();
 	}
 	
+	@RequestMapping(value = "/allemployes", method = RequestMethod.GET)
+	public List<UserDTO> getAllEmployes() {
+		return userService.findAllEmployes();
+	}
+	
 	@RequestMapping(value = "/one/{username}", method = RequestMethod.GET)
 	public List<UserDTO> getOneUsager(@PathVariable("username") String username) {
 		return userService.findUserDTOByUsernameList(username);

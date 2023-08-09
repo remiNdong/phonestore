@@ -39,7 +39,10 @@ public interface CatalogueService {
 	 */
 	List<AssociationmodelereparationDTO> findAssociationmodelereparationByModele(Long modeletephone_id);
 	
-	
+	/*
+	 * renvoie la liste des associationsmodelereparationDTO encore pratiquees pour un modele
+	 */
+	List<AssociationmodelereparationDTO> findAssociationmodelereparationPratiqueesByModele(Long modeletephone_id);
 	/*
 	 * renverra la liste des modeletelephoneDTO triées par defaut par prix croissant
 	 */

@@ -1,6 +1,9 @@
 package com.phonestore.prestation.service;
 
+import java.util.Date;
+
 import com.phonestore.prestation.domain.Prestation;
+import com.phonestore.prestation.dto.PrestationCreationDTO;
 import com.phonestore.prestation.dto.PrestationDTO;
 
 public class PrestationDTOMapper {
@@ -15,4 +18,13 @@ public class PrestationDTOMapper {
 		return prestationDTO;
 	}
 
+	public static  Prestation fromDTOtoPrestation(PrestationCreationDTO prestationCreationDTO) {
+		
+	
+		Prestation prestation=new Prestation(0L, null, null, prestationCreationDTO.getNumeroSerie(), prestationCreationDTO.getPrix(), "CREE"
+				, new Date());
+		
+		return prestation;
+	}
+	
 }
