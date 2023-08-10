@@ -18,10 +18,13 @@ import com.phonestore.catalogue.dao.ModeletelephoneDAO;
 import com.phonestore.catalogue.domain.Associationmodelereparation;
 import com.phonestore.catalogue.domain.Marque;
 import com.phonestore.catalogue.domain.Modeletelephone;
+import com.phonestore.catalogue.domain.Reparation;
 import com.phonestore.catalogue.dto.ModeletelephoneDTO;
 import com.phonestore.catalogue.exception.AssociationmodeletelephonereparationNonExistanteException;
+import com.phonestore.catalogue.exception.IdAssociationNonExistanteException;
 import com.phonestore.catalogue.exception.IdMarqueNonExistanteException;
 import com.phonestore.catalogue.exception.IdModeleNonExistantException;
+import com.phonestore.catalogue.exception.IdReparationNonExistanteException;
 import com.phonestore.catalogue.exception.ReferenceModeleExistanteException;
 import com.phonestore.catalogue.service.CatalogueDTOMapper;
 import com.phonestore.prestation.dao.PrestationDAO;
@@ -113,6 +116,38 @@ public class PrestationServiceImpl implements PrestationService {
 
 		Prestation prestationSaved = prestationDAO.save(prestation);
 		return prestationSaved.getId();
+	}
+
+	@Override
+	public Long updatePrestation(@Valid PrestationDTO prestationDTO) {
+
+		Optional<Prestation> presta=prestationDAO.findById(prestationDTO.getId());
+		if(presta.isEmpty())
+			throw new PrestationNonExistanteException();
+		
+		Optional<Associationmodelereparation> optAssociation = associationmodelereparationDAO.findById(prestationDTO.getIdAssociation());
+
+		if (optAssociation.isEmpty())
+			throw new AssociationmodeletelephonereparationNonExistanteException();
+		
+		User user = userDAO.findByUsername(prestationDTO.getIdentifiantUsager());
+
+		if (user == null)
+			throw new UserNonExistantException();
+
+		Role roleUser = roleDAO.findById(3L).get();
+
+		if (!user.getRoles().contains(roleUser))
+			throw new UserNonUsagerException();
+		
+		
+
+		Prestation prestation = PrestationDTOMapper.fromPrestationDTOtoPrestation(prestationDTO);
+		prestation.setAssociation(optAssociation.get());
+		prestation.setUsager(user);
+
+		Prestation prestationUpdated = prestationDAO.save(prestation);
+		return prestationUpdated.getId();
 	}
 
 }

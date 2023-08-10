@@ -70,6 +70,7 @@ public class SecurityConfig {
 		    .requestMatchers("/api/prestations/list/**").hasAnyAuthority("EMP","USER")
 		    .requestMatchers("/api/prestations/one/**").hasAnyAuthority("EMP","USER")
 		    .requestMatchers("/api/prestations/addprestation").hasAnyAuthority("EMP")
+		    .requestMatchers("/api/prestations/updateprestation").hasAnyAuthority("EMP")
 		  
 		  /*
 		    .requestMatchers("/api/all/**").hasAnyAuthority("ADMIN","USER")

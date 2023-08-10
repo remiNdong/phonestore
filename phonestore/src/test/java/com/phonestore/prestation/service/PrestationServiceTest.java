@@ -26,6 +26,7 @@ import com.phonestore.catalogue.dto.ModeletelephoneDTO;
 import com.phonestore.catalogue.exception.AssociationmodeletelephonereparationNonExistanteException;
 import com.phonestore.catalogue.exception.IdModeleNonExistantException;
 import com.phonestore.prestation.dto.PrestationDTO;
+import com.phonestore.prestation.exception.PrestationNonExistanteException;
 import com.phonestore.prestation.exception.UserNonExistantException;
 import com.phonestore.prestation.service.PrestationServiceImpl;
 
@@ -165,13 +166,121 @@ assertThrows(IdModeleNonExistantException.class, ()->prestationService.createPre
  */
 @Test
 @Sql("/testsql/catalogue/prestation/loadPrestation.sql")
-public void testCreateModeleAssociationFausse() {
+public void testCreatePrestationAssociationFausse() {
 
 
 assertThrows(AssociationmodeletelephonereparationNonExistanteException.class, ()->prestationService.createPrestation(DefaultContent.defaultPrestationCreationDTOAssociationFausse()));
 
 
 }
+
+/**
+ * tests if createPrestation functions
+ * 
+ * @throws Exception
+ */
+@Test
+@Sql("/testsql/catalogue/prestation/loadPrestation.sql")
+public void testUpdatePrestation() {
+
+	
+	
+	
+	PrestationDTO prestationDTO=prestationService.findPrestationById(1L).get();
+	prestationDTO.setNumeroSerie("APPIPH14");
+	prestationDTO.setPrix(280);
+	prestationDTO.setStatus("TERMINE");
+	
+	prestationService.updatePrestation(prestationDTO);
+	
+	prestationDTO=prestationService.findPrestationById(1L).get();
+	
+	
+	assertTrue(prestationDTO.getPrix()==280);
+
+	assertTrue(prestationDTO.getNumeroSerie().equals("APPIPH14"));
+	assertTrue(prestationDTO.getStatus().equals("TERMINE"));
+	
+	
+
+}
+
+
+/**
+ * tests if updatePrestation throws the right Exception
+ * 
+ * @throws Exception
+ */
+@Test
+@Sql("/testsql/catalogue/prestation/loadPrestation.sql")
+public void testUpdateModeleUserFaux() {
+
+	PrestationDTO prestationDTO=prestationService.findPrestationById(1L).get();
+	prestationDTO.setIdentifiantUsager("nobody@hotmail.fr");
+
+assertThrows(UserNonExistantException.class, ()->prestationService.updatePrestation(prestationDTO));
+
+
+}
+
+
+/**
+* tests if updatePrestation throws the right Exception
+* 
+* @throws Exception
+*/
+@Test
+@Sql("/testsql/catalogue/prestation/loadPrestation.sql")
+public void testUpdateModeleUserNonUsager() {
+
+	PrestationDTO prestationDTO=prestationService.findPrestationById(1L).get();
+	prestationDTO.setIdentifiantUsager("employe@hotmail.fr");
+
+assertThrows(UserNonUsagerException.class, ()->prestationService.updatePrestation(prestationDTO));
+
+
+}
+
+
+
+
+/**
+* tests if updatePrestation throws the right Exception
+* 
+* @throws Exception
+*/
+@Test
+@Sql("/testsql/catalogue/prestation/loadPrestation.sql")
+public void testUpdateAssociationPrestationFausse() {
+	
+
+	PrestationDTO prestationDTO=prestationService.findPrestationById(1L).get();
+	prestationDTO.setIdAssociation(3000L);
+
+assertThrows(AssociationmodeletelephonereparationNonExistanteException.class, ()->prestationService.updatePrestation(prestationDTO));
+
+
+}
+
+/**
+* tests if updatePrestation throws the right Exception
+* 
+* @throws Exception
+*/
+@Test
+@Sql("/testsql/catalogue/prestation/loadPrestation.sql")
+public void testUpdatePrestationNonExistante() {
+	
+
+	PrestationDTO prestationDTO=prestationService.findPrestationById(1L).get();
+	prestationDTO.setId(3000L);
+
+assertThrows(PrestationNonExistanteException.class, ()->prestationService.updatePrestation(prestationDTO));
+
+
+}
+
+
 
 
 }

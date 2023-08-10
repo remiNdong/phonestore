@@ -78,7 +78,7 @@ public class AssociationRestController {
 		}
 		
 		@RequestMapping(value = "/updateassociation", method = RequestMethod.PUT)
-		public ResponseEntity<MessageDTO> updateModele(
+		public ResponseEntity<MessageDTO> updateAssociation(
 				@Valid @RequestBody AssociationmodelereparationDTO associationmodelereparationDTO) {
 
 			try {

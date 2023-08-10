@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.phonestore.catalogue.dto.AssociationmodelereparationDTO;
 import com.phonestore.catalogue.dto.MessageDTO;
 import com.phonestore.catalogue.dto.ModeletelephoneCreationDTO;
 import com.phonestore.catalogue.dto.ReparationDTO;
@@ -78,6 +79,31 @@ public class PrestationController {
 					.ok(new MessageDTO("Un problème technique est survenu : \n" + e.getMessage()));
 		}
 	}
+	
+	
+	@RequestMapping(value = "/updateprestation", method = RequestMethod.PUT)
+	public ResponseEntity<MessageDTO> updatePrestation(
+			@Valid @RequestBody PrestationDTO prestationDTO) {
+
+		try {
+
+			prestationService.updatePrestation(prestationDTO);
+
+			return ResponseEntity.ok(new MessageDTO("Modification de la prestation réussie"));
+
+	
+
+		} catch (ConstraintViolationException e) {
+			return ResponseEntity
+					.ok(new MessageDTO("Les données entrées pour la prestation sont erronées \n" + e.getMessage()));
+
+		} catch (Exception e) {
+			return ResponseEntity
+					.ok(new MessageDTO("Un problème technique est survenu : \n" + e.getMessage()));
+		}
+	}
+	
+	
 
 	/*
 	 * En cas d'erreur sur le formulaire PrestationCreationDTO les erreurs

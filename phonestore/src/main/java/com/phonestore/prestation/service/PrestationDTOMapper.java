@@ -27,4 +27,14 @@ public class PrestationDTOMapper {
 		return prestation;
 	}
 	
+
+	public static  Prestation fromPrestationDTOtoPrestation(PrestationDTO prestationDTO) {
+		
+	
+		Prestation prestation=new Prestation(prestationDTO.getId(), null, null, prestationDTO.getNumeroSerie(), prestationDTO.getPrix(), prestationDTO.getStatus()
+				, prestationDTO.getDateCreation());
+		
+		return prestation;
+	}
+	
 }
