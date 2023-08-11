@@ -1,5 +1,6 @@
 package com.phonestore.prestation.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,7 +13,9 @@ import com.phonestore.administration.dao.RoleDAO;
 import com.phonestore.administration.dao.UserDAO;
 import com.phonestore.administration.domain.Role;
 import com.phonestore.administration.domain.User;
+import com.phonestore.administration.dto.UserDTO;
 import com.phonestore.administration.exception.UserNonUsagerException;
+import com.phonestore.administration.service.UserDTOMapper;
 import com.phonestore.catalogue.dao.AssociationmodelereparationDAO;
 import com.phonestore.catalogue.dao.ModeletelephoneDAO;
 import com.phonestore.catalogue.domain.Associationmodelereparation;
@@ -148,6 +151,35 @@ public class PrestationServiceImpl implements PrestationService {
 
 		Prestation prestationUpdated = prestationDAO.save(prestation);
 		return prestationUpdated.getId();
+	}
+
+	@Override
+	public List<PrestationDTO> findAll() {
+		return prestationDAO.findAll().stream().map(PrestationDTOMapper::prestationToDTO).toList();
+	}
+
+	@Override
+	public List<PrestationDTO> findPrestationByNumeroSerie(String numeroSerie) {
+		return prestationDAO.findByNumeroSerie(numeroSerie).stream().map(PrestationDTOMapper::prestationToDTO).toList();
+	}
+
+	@Override
+	public List<PrestationDTO> findPrestationByIdList(Long idPrestation) {
+
+	List<PrestationDTO> list = new ArrayList<PrestationDTO>();
+	
+		
+		Optional<Prestation>  presta=prestationDAO.findById(idPrestation);
+		
+		if(!presta.isEmpty()) {
+			PrestationDTO prestationDTO = PrestationDTOMapper.prestationToDTO(presta.get());
+
+	
+		list.add(prestationDTO);
+		
+		}
+
+		return list;
 	}
 
 }

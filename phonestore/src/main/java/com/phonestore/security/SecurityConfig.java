@@ -71,6 +71,8 @@ public class SecurityConfig {
 		    .requestMatchers("/api/prestations/one/**").hasAnyAuthority("EMP","USER")
 		    .requestMatchers("/api/prestations/addprestation").hasAnyAuthority("EMP")
 		    .requestMatchers("/api/prestations/updateprestation").hasAnyAuthority("EMP")
+		    .requestMatchers("/api/prestations/all").hasAnyAuthority("EMP")
+		    .requestMatchers("/api/prestations/all/**").hasAnyAuthority("EMP")
 		  
 		  /*
 		    .requestMatchers("/api/all/**").hasAnyAuthority("ADMIN","USER")

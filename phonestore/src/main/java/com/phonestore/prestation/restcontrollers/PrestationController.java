@@ -46,6 +46,22 @@ public class PrestationController {
 		return prestationService.findPrestationByIdentifiantUsager(username);
 	}
 	
+	@RequestMapping(value = "/all", method = RequestMethod.GET)
+	public List<PrestationDTO> getAllPrestations() {
+		return prestationService.findAll();
+	}
+	
+	
+	@RequestMapping(value = "/all/numeroserie/{numeroSerie}", method = RequestMethod.GET)
+	public List<PrestationDTO> getPrestationssByNumeroSerie(@PathVariable("numeroSerie") String numeroSerie) {
+		return prestationService.findPrestationByNumeroSerie(numeroSerie);
+	}
+	
+	@RequestMapping(value = "/all/id/{id}", method = RequestMethod.GET)
+	public List<PrestationDTO> getPrestationssByIdList(@PathVariable("id") Long id) {
+		return prestationService.findPrestationByIdList(id);
+	}
+	
 	
 	@RequestMapping(value = "one/{id}", method = RequestMethod.GET)
 	public PrestationDTO getOnePrestationsUsager(@PathVariable("id") Long id) {

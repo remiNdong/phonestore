@@ -20,6 +20,26 @@ public interface PrestationService {
 	 */
 	List<PrestationDTO> findPrestationByIdentifiantUsager(String nomUsager);
 	
+	
+	/*
+	 * renvoie la liste des prestationDTO 
+	 */
+	List<PrestationDTO> findAll();
+	
+	
+	/*
+	 * renvoie la liste des prestationDTO  par numero de Serie
+	 */
+	List<PrestationDTO> findPrestationByNumeroSerie(String numeroSerie);
+	
+	
+	/*
+	 * renvoie une prestationDTO dans une liste
+	 */
+	
+	List<PrestationDTO> findPrestationByIdList(Long idPrestation);
+	
+	
 	/*
 	 * renvoie une prestationDTO 
 	 */

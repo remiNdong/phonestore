@@ -11,5 +11,7 @@ public interface PrestationDAO extends JpaRepository<Prestation, Long>{
 	
 	List<Prestation> findByUsager(User user);
 	
+	List<Prestation> findByNumeroSerie(String numeroSerie);
+	
 
 }

@@ -42,6 +42,72 @@ public class PrestationServiceTest {
 
 	@Autowired
 	PrestationService prestationService;
+	
+	/**
+	 * tests if findAll returns the good List of prestations
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	@Sql("/testsql/catalogue/prestation/loadPrestations2.sql")
+	public void findAll() throws Exception {
+
+		List<PrestationDTO> prestations = prestationService.findAll();
+
+		assertEquals(2, prestations.size());
+
+	}
+	
+	/**
+	 * tests if findByNumeroSerie returns the good List of prestations
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	@Sql("/testsql/catalogue/prestation/loadPrestations2.sql")
+	public void findByNumeroSerie() throws Exception {
+
+		List<PrestationDTO> prestations = prestationService.findPrestationByNumeroSerie("APPLEIPHONE14");
+
+		assertEquals(1, prestations.size());
+		PrestationDTO prestation=prestations.get(0);
+		assertEquals("client@hotmail.fr", prestation.getIdentifiantUsager());
+		assertEquals("iphone_14",prestation.getNomModele());
+		assertEquals("APPLE",prestation.getNomMarque());
+		assertEquals("remplacement batterie",prestation.getNomReparation());
+		assertEquals("APPLEIPHONE14",prestation.getNumeroSerie());
+		assertEquals("CREE", prestation.getStatus());
+		System.out.println("Date création :"+prestation.getDateCreation());
+		System.out.println("Id association :"+prestation.getIdAssociation());
+		System.out.println("Prix association :"+prestation.getPrix());
+
+	}
+	
+	/**
+	 * tests if findByIdList returns the good List of prestations
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	@Sql("/testsql/catalogue/prestation/loadPrestations2.sql")
+	public void findByIdList() throws Exception {
+
+		List<PrestationDTO> prestations = prestationService.findPrestationByIdList(1L);
+
+		assertEquals(1, prestations.size());
+		PrestationDTO prestation=prestations.get(0);
+		assertEquals("client@hotmail.fr", prestation.getIdentifiantUsager());
+		assertEquals("iphone_14",prestation.getNomModele());
+		assertEquals("APPLE",prestation.getNomMarque());
+		assertEquals("remplacement batterie",prestation.getNomReparation());
+		assertEquals("APPLEIPHONE14",prestation.getNumeroSerie());
+		assertEquals("CREE", prestation.getStatus());
+		System.out.println("Date création :"+prestation.getDateCreation());
+		System.out.println("Id association :"+prestation.getIdAssociation());
+		System.out.println("Prix association :"+prestation.getPrix());
+
+	}
+
 
 	/**
 	 * tests if findPrestationByIdentifiantUsager returns the good List of prestations
