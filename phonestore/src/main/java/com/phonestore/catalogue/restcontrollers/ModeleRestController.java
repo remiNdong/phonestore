@@ -46,15 +46,27 @@ public class ModeleRestController {
 		return catalogueService.findModele(id).get();
 	}
 
+	/*
+	 * Methode qui permettra de trouver une liste de modele par taille d'ecran
+	 * finalement non utilisee par le front-end
+	 */
 	@RequestMapping(value = "taille/{taille}", method = RequestMethod.GET)
 	public List<ModeletelephoneDTO> getModelesByTaillecran(@PathVariable("taille") Double taille) {
 		return catalogueService.findModeletelephonesByTailleEcran(taille);
 	}
-
+	/*
+	 * Methode qui permettra de trouver une liste de modele par capacite de stockage
+	 * 
+	 */
 	@RequestMapping(value = "capacite/{capacite}", method = RequestMethod.GET)
 	public List<ModeletelephoneDTO> getModelesByCapaciteStockage(@PathVariable("capacite") int capacite) {
 		return catalogueService.findModeletelephonesByCapaciteStockage(capacite);
 	}
+	
+	/*
+	 * Methode qui permettra de trouver une liste de modele par fourchette de prix
+	 *
+	 */
 	
 	@RequestMapping(value = "prix/{prixRange}", method = RequestMethod.GET)
 	public List<ModeletelephoneDTO> getModelesByPrix(@PathVariable("prixRange") int prixRange) {
@@ -74,7 +86,10 @@ public class ModeleRestController {
 			
 	}
 	
-	
+	/*
+	 * Methode qui permettra de trouver une liste de modele par fourchette de taille d'ecran
+	 *
+	 */
 	
 	@RequestMapping(value = "tailleEcranRange/{tailleEcranRange}", method = RequestMethod.GET)
 	public List<ModeletelephoneDTO> getModelesByTailleEcranRange(@PathVariable("tailleEcranRange") int tailleEcranRange) {

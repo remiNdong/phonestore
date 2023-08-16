@@ -30,10 +30,15 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	RoleDAO roleDAO;
 
+	/*
+	 * Methode qui correspond à la recherche d'un usager
+	 * Throws UserNonUsagerException si l'utilisateur n'est pas un usager
+	 */
 	@Override
 	public UserDTO findUserDTOByUsername(String username) {
 		UserDTO userDTO = UserDTOMapper.UsertoUserDTO(userDAO.findByUsername(username));
 
+		//role dont id est 3 est le role d'un simple usager
 		Role roleUser = roleDAO.findById(3L).get();
 
 		if (!userDTO.getRoles().contains(roleUser))
@@ -42,23 +47,31 @@ public class UserServiceImpl implements UserService {
 		return userDTO;
 	}
 
+	/*
+	 * Methode qui correspond à la recherche d'une liste d' usagers
+	 * portant un certain nom
+	 */
 	@Override
 	public List<UserDTO> findUserDTOByNom(String nom) {
 
-		// return userDAO.findByNom(nom).stream().map(UserDTOMapper::UsertoUserDTO)
-		// .toList();
+		
 
 		Role roleUser = roleDAO.findById(3L).get();
 
+		//les utilisateurs ne sont ajoutés à la liste que s'ils sont usagers
 		return userDAO.findByNom(nom).stream().filter(u -> u.getRoles().contains(roleUser))
 				.map(UserDTOMapper::UsertoUserDTO).toList();
 
 	}
 
+	/*
+	 * Methode qui correspond à la recherche d'une liste de tous les usagers
+	 * 
+	 */
 	@Override
 	public List<UserDTO> findAll() {
-		// return userDAO.findAll().stream().map(UserDTOMapper::UsertoUserDTO)
-		// .toList();
+
+
 
 		Role roleUser = roleDAO.findById(3L).get();
 
@@ -67,6 +80,11 @@ public class UserServiceImpl implements UserService {
 
 	}
 
+	/*
+	 * Methode qui correspond à la recherche d'un seul usager
+	 * trouvé par son username et renvoyé sous forme de liste
+	 * car dans le front end on travaillera avec une liste
+	 */
 	@Override
 	public List<UserDTO> findUserDTOByUsernameList(String username) {
 		List<UserDTO> list = new ArrayList<UserDTO>();
@@ -94,6 +112,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<UserDTO> findAllEmployes() {
 
+		//role dont id est 2 est le role d'un employe
 		Role roleUser = roleDAO.findById(2L).get();
 
 		return userDAO.findAll().stream().filter(u -> u.getRoles().contains(roleUser)).map(UserDTOMapper::UsertoUserDTO)

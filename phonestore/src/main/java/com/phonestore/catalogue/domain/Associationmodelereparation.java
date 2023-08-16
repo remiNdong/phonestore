@@ -1,7 +1,6 @@
 package com.phonestore.catalogue.domain;
 
 
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,6 +13,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/*Une Associationmodelereparation associe un modele et un type de reparation
+ * pour pratiquer un type de reparation sur un modele
+ * il faut au prealable creer cette association
+ * 
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -38,6 +42,10 @@ public class Associationmodelereparation {
 	@NotNull
 	private double prix;
 	
+	//par defaut le type de reparation sera praticable sur un modele
+	// donc praticable sera egal à 1
+	// si le commercant ne pratique plus ce type de reparation sur le modele
+	// il passera praticable à 0
 	@Column
 	private int praticable;
 }

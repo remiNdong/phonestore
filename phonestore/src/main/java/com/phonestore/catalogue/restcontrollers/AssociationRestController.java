@@ -38,12 +38,20 @@ public class AssociationRestController {
 	 @Autowired
 	    CatalogueService catalogueService;
 	 
+	 /*
+	  * Methode qui renvoi la liste des types de reparations existante sur un modele
+	  * pratiquees et non pratiquees
+	  */
 	 @RequestMapping(value = "/liste/{id}", method = RequestMethod.GET)
 		public List<AssociationmodelereparationDTO> getAssociationsByModele(@PathVariable("id") Long id) {
 			return catalogueService.findAssociationmodelereparationByModele(id);
 			
 		}
 	 
+	 /*
+	  * Methode qui renvoi la liste des types de reparations encore
+	  * pratiquees sur un modele
+	  */
 	 @RequestMapping(value = "/listepratiquees/{id}", method = RequestMethod.GET)
 		public List<AssociationmodelereparationDTO> getAssociationsPratiqueesByModele(@PathVariable("id") Long id) {
 			return catalogueService.findAssociationmodelereparationPratiqueesByModele(id);
@@ -56,6 +64,10 @@ public class AssociationRestController {
 		}
 	 
 
+	 /*
+	  * Methode qui permetra de dire qu'un type de reparation sera dorenavant existante sur un modele
+	  * par defaut elle sera pratiquée
+	  */
 		@RequestMapping(value = "/addassociation", method = RequestMethod.POST)
 		public ResponseEntity<MessageDTO> createAssociation(
 				@Valid @RequestBody AssociationmodelereparationDTO associationmodelereparationDTO) {

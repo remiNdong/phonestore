@@ -29,13 +29,20 @@ public class ImageRestController {
 	@Autowired
 	CatalogueService catalogueService;
 	
+	/*
+	 * Methode qui permettra de charger l'image dans un tableau de byte
+	 * depuis l'id du modele et ensuite grace au path de l'image enregistrée dans un dossier
+	 * en local dans C:\Users\boma\images
+	 */
 	@RequestMapping(value = "/loadImage/{id}", method = RequestMethod.GET, produces = org.springframework.http.MediaType.IMAGE_JPEG_VALUE)
 	public byte[] getImage(@PathVariable("id") Long id) throws IOException {
 
 		ModeletelephoneDTO modeletelephoneDTO = catalogueService.findModele(id).get();
 		return Files.readAllBytes(Paths.get(System.getProperty("user.home") + "/images/" + modeletelephoneDTO.getImagePath()));
 	}
-	
+	/*
+	 * Methode qui permet d'enregistrer l'image du modele en local dans le dossier C:\Users\boma\images
+	 */
 	@RequestMapping(value = "/uploadImage/{reference}", method = RequestMethod.POST)
 	public void uploadImage(@RequestParam("image") MultipartFile file, @PathVariable("reference") String  reference)
 			throws IOException {
@@ -55,6 +62,11 @@ public class ImageRestController {
 		Files.write(Paths.get(System.getProperty("user.home") + "/images/" + modeletelephoneDTO.getImagePath()), file.getBytes());
 
 	}
+	
+	/*
+	 * Methode qui permet de supprimer l'image du modele du dossier C:\Users\boma\images
+	 * sera utilisée en cas de remplacement par une nouvelle image -> update du modele
+	 */
 	
 	@RequestMapping(value = "/delete/{imagePath}", method = RequestMethod.DELETE)
 	public void deleteImage(@PathVariable("imagePath") String  imagePath) throws IOException {

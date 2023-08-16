@@ -27,6 +27,10 @@ public class ReparationController {
 		return catalogueService.findReparations();
 	}
 
+	/*
+	 * Methode qui permet de trouver les type de reparations pas encore 
+	 * pratiquees sur un modele
+	 */
 	@RequestMapping(value = "/{idModele}", method = RequestMethod.GET)
 	public List<ReparationDTO> getRepparationsNonPratiquees(@PathVariable("idModele") Long idModele) {
 		return catalogueService.findReparationsNonPratiquees(idModele);
