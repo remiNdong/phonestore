@@ -121,6 +121,9 @@ public class PrestationServiceImpl implements PrestationService {
 		return prestationSaved.getId();
 	}
 
+	/*
+	 * Methode qui permet de modifier le prix ou le statut de la prestation uniquement
+	 */
 	@Override
 	public Long updatePrestation(@Valid PrestationDTO prestationDTO) {
 

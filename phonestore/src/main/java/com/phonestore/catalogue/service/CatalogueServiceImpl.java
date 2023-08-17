@@ -114,6 +114,8 @@ public class CatalogueServiceImpl implements CatalogueService {
 		List<Modeletelephone> list = modeletelephoneDAO
 				.findByReference(modeletelephoneCreationDTO.getReference().toLowerCase());
 
+		//la reference d'un modele est une clé candidate
+		//chaque reference doit etre unique
 		if (!list.isEmpty())
 			throw new ReferenceModeleExistanteException();
 
@@ -231,6 +233,8 @@ public class CatalogueServiceImpl implements CatalogueService {
 				.findByModeletelephoneAndReparation(modele.get(), reparation.get());
 		if (!list.isEmpty())
 			throw new AssociationmodeletelephonereparationDejaExistanteException();
+		//on n'aura qu'une  seule fois un type de reparaton par modele
+		//exemple une seule reparation batterie sue un iphone_14
 
 		Associationmodelereparation association = CatalogueDTOMapper
 				.fromAssociationmodelereparationDTOtoAssociation(associationmodelereparationDTO);
