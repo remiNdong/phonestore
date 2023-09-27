@@ -8,6 +8,7 @@ import com.phonestore.catalogue.dto.AssociationmodelereparationDTO;
 import com.phonestore.catalogue.dto.MarqueDTO;
 import com.phonestore.catalogue.dto.ModeletelephoneDTO;
 import com.phonestore.catalogue.dto.ModeletelephoneUpdatedDTO;
+import com.phonestore.catalogue.dto.RecherchemodeleDTO;
 import com.phonestore.catalogue.dto.ReparationDTO;
 import com.phonestore.catalogue.dto.ModeletelephoneCreationDTO;
 import jakarta.validation.Valid;
@@ -47,6 +48,11 @@ public interface CatalogueService {
 	 * renverra la liste des modeletelephoneDTO triées par defaut par prix croissant
 	 */
 	List<ModeletelephoneDTO> findModeletelephones();
+	
+	/*
+	 * renverra la liste des modeletelephoneDTO triées selon des criteres et par defaut par prix croissant
+	 */
+	List<ModeletelephoneDTO> rechercherModeletelephones(RecherchemodeleDTO recherchemodeleDTO);
 	
 	/*
 	 * renverra la liste des modeletelephoneDTO portant une reference, en theorie il n'y en a que un

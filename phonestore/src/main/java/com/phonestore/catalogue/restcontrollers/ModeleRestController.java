@@ -22,6 +22,7 @@ import com.phonestore.catalogue.dto.MessageDTO;
 import com.phonestore.catalogue.dto.ModeletelephoneCreationDTO;
 import com.phonestore.catalogue.dto.ModeletelephoneDTO;
 import com.phonestore.catalogue.dto.ModeletelephoneUpdatedDTO;
+import com.phonestore.catalogue.dto.RecherchemodeleDTO;
 import com.phonestore.catalogue.exception.ReferenceModeleExistanteException;
 import com.phonestore.catalogue.service.CatalogueService;
 
@@ -39,6 +40,14 @@ public class ModeleRestController {
 	@RequestMapping(method = RequestMethod.GET)
 	public List<ModeletelephoneDTO> getAllModeles() {
 		return catalogueService.findModeletelephones();
+	}
+	
+	@RequestMapping(value = "/recherchermodele", method = RequestMethod.POST)
+	public List<ModeletelephoneDTO>  rechercherModele(
+			@Valid @RequestBody RecherchemodeleDTO recherchemodeleDTO) {
+		
+		return catalogueService.rechercherModeletelephones(recherchemodeleDTO);
+
 	}
 
 	@RequestMapping(value = "/modele/{id}", method = RequestMethod.GET)

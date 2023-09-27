@@ -1,5 +1,6 @@
 package com.phonestore.catalogue.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,6 +23,7 @@ import com.phonestore.catalogue.dto.MarqueDTO;
 import com.phonestore.catalogue.dto.ModeletelephoneCreationDTO;
 import com.phonestore.catalogue.dto.ModeletelephoneDTO;
 import com.phonestore.catalogue.dto.ModeletelephoneUpdatedDTO;
+import com.phonestore.catalogue.dto.RecherchemodeleDTO;
 import com.phonestore.catalogue.dto.ReparationDTO;
 import com.phonestore.catalogue.exception.AssociationmodeletelephonereparationDejaExistanteException;
 import com.phonestore.catalogue.exception.AssociationmodeletelephonereparationNonExistanteException;
@@ -73,6 +75,84 @@ public class CatalogueServiceImpl implements CatalogueService {
 	}
 
 	@Override
+	public List<ModeletelephoneDTO> rechercherModeletelephones(RecherchemodeleDTO recherchemodeleDTO) {
+
+		List<ModeletelephoneDTO> liste = modeletelephoneDAO.findByPrixAsc().stream()
+				.map(CatalogueDTOMapper::modeletelephoneToDTO).toList();
+		List<ModeletelephoneDTO> resultat = new ArrayList<ModeletelephoneDTO>();
+
+		for (ModeletelephoneDTO modele : liste) {
+
+			boolean ajout = true;
+
+			if (recherchemodeleDTO.getIdMarque() != 0
+					&& recherchemodeleDTO.getIdMarque() != modele.getMarqueDTO().getId())
+				ajout = false;
+
+			if (recherchemodeleDTO.getCapaciteStockage() != 0
+					&& recherchemodeleDTO.getCapaciteStockage() != modele.getCapaciteStockage())
+				ajout = false;
+
+			if (recherchemodeleDTO.getRangeTailleEcran() != 0) {
+				switch (recherchemodeleDTO.getRangeTailleEcran()) {
+
+				case 1:
+					if (modele.getTailleEcran() > 6)
+						ajout = false;
+					break;
+				case 2:
+					if (modele.getTailleEcran() < 6 || modele.getTailleEcran() > 7)
+						ajout = false;
+					break;
+				case 3:
+					if (modele.getTailleEcran() < 7)
+						ajout = false;
+					break;
+				// Default case statement
+				default:
+					System.out.println("Not in 1, 2 or 3");
+
+				}
+			}
+
+			if (recherchemodeleDTO.getRangeprix() != 0) {
+
+				switch (recherchemodeleDTO.getRangeprix()) {
+
+				case 1:
+					if (modele.getPrix() > 500)
+						ajout = false;
+					break;
+				case 2:
+					if (modele.getPrix() < 500 || modele.getPrix() > 1000)
+						ajout = false;
+					break;
+				case 3:
+					if (modele.getPrix() < 1000 || modele.getPrix() > 2000)
+						ajout = false;
+					break;
+
+				case 4:
+					if (modele.getPrix() < 2000)
+						ajout = false;
+					break;
+				// Default case statement
+				default:
+					System.out.println("Not in 1, 2, 3 or 4");
+
+				}
+			}
+
+			if (ajout)
+				resultat.add(modele);
+
+		}
+
+		return resultat;
+
+	}
+
+	@Override
 	public List<ModeletelephoneDTO> findModeletelephonesByMarque(Long marqueId) {
 		Optional<Marque> marque = marqueDAO.findById(marqueId);
 
@@ -114,8 +194,8 @@ public class CatalogueServiceImpl implements CatalogueService {
 		List<Modeletelephone> list = modeletelephoneDAO
 				.findByReference(modeletelephoneCreationDTO.getReference().toLowerCase());
 
-		//la reference d'un modele est une clé candidate
-		//chaque reference doit etre unique
+		// la reference d'un modele est une clé candidate
+		// chaque reference doit etre unique
 		if (!list.isEmpty())
 			throw new ReferenceModeleExistanteException();
 
@@ -199,9 +279,8 @@ public class CatalogueServiceImpl implements CatalogueService {
 
 		return associationmodelereparationDAO.findByModeletelephone(modeletephone.get()).stream()
 				.map(CatalogueDTOMapper::associationmodelereparationToDTO).toList();
-		
+
 	}
-	
 
 	@Override
 	public List<AssociationmodelereparationDTO> findAssociationmodelereparationPratiqueesByModele(
@@ -212,10 +291,10 @@ public class CatalogueServiceImpl implements CatalogueService {
 		if (modeletephone.isEmpty())
 			throw new IdModeleNonExistantException();
 
-		return associationmodelereparationDAO.findByModeletelephone(modeletephone.get()).stream().filter(asso -> asso.getPraticable()==1)
-				.map(CatalogueDTOMapper::associationmodelereparationToDTO).toList();
+		return associationmodelereparationDAO.findByModeletelephone(modeletephone.get()).stream()
+				.filter(asso -> asso.getPraticable() == 1).map(CatalogueDTOMapper::associationmodelereparationToDTO)
+				.toList();
 	}
-	
 
 	@Override
 	public Long createAssociation(@Valid AssociationmodelereparationDTO associationmodelereparationDTO) {
@@ -233,8 +312,8 @@ public class CatalogueServiceImpl implements CatalogueService {
 				.findByModeletelephoneAndReparation(modele.get(), reparation.get());
 		if (!list.isEmpty())
 			throw new AssociationmodeletelephonereparationDejaExistanteException();
-		//on n'aura qu'une  seule fois un type de reparaton par modele
-		//exemple une seule reparation batterie sue un iphone_14
+		// on n'aura qu'une seule fois un type de reparaton par modele
+		// exemple une seule reparation batterie sue un iphone_14
 
 		Associationmodelereparation association = CatalogueDTOMapper
 				.fromAssociationmodelereparationDTOtoAssociation(associationmodelereparationDTO);
@@ -255,7 +334,7 @@ public class CatalogueServiceImpl implements CatalogueService {
 				.findById(associationmodelereparationDTO.getId());
 		if (optAssociation.isEmpty())
 			throw new IdAssociationNonExistanteException();
-		
+
 		Optional<Reparation> reparation = reparationDAO.findById(associationmodelereparationDTO.getIdReparation());
 		if (reparation.isEmpty())
 			throw new IdReparationNonExistanteException();
@@ -264,20 +343,19 @@ public class CatalogueServiceImpl implements CatalogueService {
 				.findById(associationmodelereparationDTO.getIdModeletelephone());
 		if (modele.isEmpty())
 			throw new IdModeleNonExistantException();
-		
+
 		List<Associationmodelereparation> list = associationmodelereparationDAO
 				.findByModeletelephoneAndReparation(modele.get(), reparation.get());
 		if (list.isEmpty())
 			throw new AssociationmodeletelephonereparationNonExistanteException();
-		
-		Associationmodelereparation association=optAssociation.get();
+
+		Associationmodelereparation association = optAssociation.get();
 		association.setPraticable(associationmodelereparationDTO.getPraticable());
 		association.setPrix(associationmodelereparationDTO.getPrix());
-		
+
 		associationmodelereparationDAO.save(association);
-		
+
 		return association.getId();
-		
 
 	}
 
@@ -290,8 +368,7 @@ public class CatalogueServiceImpl implements CatalogueService {
 			throw new IdAssociationNonExistanteException();
 
 		return association.map(CatalogueDTOMapper::associationmodelereparationToDTO);
-		
-	}
 
+	}
 
 }

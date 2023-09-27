@@ -49,6 +49,7 @@ public class SecurityConfig {
 		    .requestMatchers("/api/associations/liste/**").permitAll()
 		    .requestMatchers("/api/associations/listepratiquees/**").permitAll()
 		    .requestMatchers("/api/modeles").permitAll()
+		    .requestMatchers("/api/modeles/recherchermodele").permitAll()
 		    .requestMatchers("/api/modeles/modele/**").permitAll()
 		    .requestMatchers("/api/modeles/taille/**").permitAll()
 		    .requestMatchers("/api/modeles/tailleEcranRange/**").permitAll()
