@@ -3,12 +3,18 @@ package com.phonestore.security;
 import java.util.Arrays;
 import java.util.Collections;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -19,6 +25,31 @@ import jakarta.servlet.http.HttpServletRequest;
 @EnableWebSecurity
 public class SecurityConfig {
 	
+	
+	@Autowired
+	UserDetailsService userDetailsService;
+
+	@Autowired
+	BCryptPasswordEncoder bCryptPasswordEncoder;
+
+	@Autowired
+	AuthenticationManager authMgr;
+
+	/*
+	 * Methode qui definit l'AuthentificationManager qui est Autowired
+	 */
+	@Bean
+	public AuthenticationManager authManager(HttpSecurity http, BCryptPasswordEncoder bCryptPasswordEncoder,
+			UserDetailsService userDetailsService) throws Exception {
+		return http.getSharedObject(AuthenticationManagerBuilder.class).userDetailsService(userDetailsService)
+				.passwordEncoder(bCryptPasswordEncoder).and().build();
+	}
+	
+	/*
+	 * Methode qui desactive le csrf et la gestion de l'etat du sessionManagement car on travaillera avec des token. 
+	 * Qui configure les url accessible ou non. Ici seul login est accessible sans etre connecté
+	 * Qui assure le passage par un filtre d'authentification à chaque appel
+	 */
 	@Bean
 	 public SecurityFilterChain filterChain(HttpSecurity http) throws Exception 
 	{ 		
@@ -83,7 +114,17 @@ public class SecurityConfig {
 		    
 		    */
 		    
-		    .and().addFilterBefore(new JWTAuthorizationFilter(), BasicAuthenticationFilter.class);
+		//    .and().addFilterBefore(new JWTAuthorizationFilter(), BasicAuthenticationFilter.class);
+
+		    .requestMatchers("/login").permitAll()
+			.requestMatchers("/all").hasAnyAuthority("ADMIN") //securisation pour tester non utilise par appli
+			.requestMatchers("/addemploye").hasAnyAuthority("ADMIN")
+			.requestMatchers("/addusager").hasAnyAuthority("EMP")
+			.requestMatchers("/one/**").hasAnyAuthority("EMP")
+			.requestMatchers("/user").authenticated()
+			.anyRequest().permitAll().and()
+			.addFilterBefore(new JWTAuthenticationFilter(authMgr), UsernamePasswordAuthenticationFilter.class)
+			.addFilterBefore(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
 		    
 		   
 		 return http.build();
