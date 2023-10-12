@@ -75,6 +75,7 @@ public class SecurityConfig {
 	          
 	          	          
 		    .authorizeHttpRequests()
+		    .requestMatchers("/webjars/**").permitAll()
 		    .requestMatchers("/api/marques/**").permitAll()
 		    .requestMatchers("/api/reparations/**").permitAll()
 		    .requestMatchers("/api/associations/liste/**").permitAll()

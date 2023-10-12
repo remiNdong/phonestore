@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
-import com.phonestore.administration.service.UserDTOMapper;
 import com.phonestore.catalogue.dao.AssociationmodelereparationDAO;
 import com.phonestore.catalogue.dao.MarqueDAO;
 import com.phonestore.catalogue.dao.ModeletelephoneDAO;
@@ -60,6 +59,8 @@ public class CatalogueServiceImpl implements CatalogueService {
 	@Override
 	public List<ReparationDTO> findReparations() {
 		return reparationDAO.findAll().stream().map(CatalogueDTOMapper::reparationToDTO).toList();
+		
+		
 	}
 
 	@Override

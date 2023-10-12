@@ -16,6 +16,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,6 +26,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Table(name = "modeletelephone", schema = "phonestore")
 public class Modeletelephone {
 	
 	
@@ -54,6 +56,7 @@ public class Modeletelephone {
 	private String imagePath;
 	
 	@ManyToOne
+	@JoinColumn(name = "marque_id")
 	Marque marque;
 	
 	

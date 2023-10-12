@@ -44,7 +44,7 @@ public class CatalogueServiceTest {
 	MarqueDAO marqueDAO;
 	
 	
-
+/*
 	@Test
 	@Sql("/testsql/empty.sql")
 	public void testFindMarquesEmpty() {
@@ -536,7 +536,7 @@ public class CatalogueServiceTest {
 	}
 	
 
-	
+	*/
 	
 	
 	

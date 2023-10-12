@@ -21,9 +21,9 @@ import com.amazonaws.services.s3.model.ObjectMetadata;
 @Service
 public class StorageServiceImpl implements StorageService{
 	
-	private String bucketName = "";
-	private String accesskey = "";
-	private String secretkey = "";
+	private String bucketName = "phonestore";
+	private String accesskey = "AKIA5OW5A23HLN5LPK5O";
+	private String secretkey = "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";
 	private AmazonS3 s3client;
 	//private Map<String, File> map;
 

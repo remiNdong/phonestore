@@ -13,6 +13,7 @@
 	<artifactId>phonestore</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>phonestore</name>
+	<packaging>jar</packaging>
 	<description>site web de phonestore</description>
 	<properties>
 		<java.version>11</java.version>

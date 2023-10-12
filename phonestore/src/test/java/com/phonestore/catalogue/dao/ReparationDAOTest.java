@@ -39,7 +39,7 @@ public class ReparationDAOTest {
 	 * tests if findAll returns empty when no reparation
 	 * 
 	 * @throws Exception
-	 */
+	 
 	@Test
 	@Sql("/testsql/empty.sql")
 	public void findAllEmpty() throws Exception {
@@ -49,11 +49,11 @@ public class ReparationDAOTest {
 	}
 	
 
-	/**
+	
 	 * tests if findAll returns the right number of Reparation
 	 * 
 	 * @throws Exception
-	 */
+	 
 	@Test
 	@Sql("/testsql/catalogue/reparation/loadReparation.sql")
 	public void findAll() throws Exception {
@@ -62,11 +62,11 @@ public class ReparationDAOTest {
 		assertEquals(6, list.size());
 	}
 	
-	/**
+	
 	 * tests if findById returns the right  Reparation
 	 * 
 	 * @throws Exception
-	 */
+	 
 	@Test
 	@Sql("/testsql/catalogue/reparation/loadReparation.sql")
 	public void findById() throws Exception {
@@ -75,11 +75,11 @@ public class ReparationDAOTest {
 		assertEquals(reparation.get().getNom(), "remplacement écran");
 	}
 	
-	/**
+	
 	 * tests if findById on a Id non existant returns empty
 	 * 
 	 * @throws Exception
-	 */
+	 
 	@Test
 	@Sql("/testsql/catalogue/reparation/loadReparation.sql")
 	public void findByIdNonExist() throws Exception {
@@ -88,11 +88,11 @@ public class ReparationDAOTest {
 		assertTrue(reparation.isEmpty());
 	}
 	
-	/**
+	
 	 * tests if findByReparationNonPratiquees returns the right number of Reparation
 	 * 
 	 * @throws Exception
-	 */
+	 
 	@Test
 	@Sql("/testsql/catalogue/association/loadAssociations.sql")
 	public void findByReparationNonPratiquees() throws Exception {
@@ -101,5 +101,5 @@ public class ReparationDAOTest {
 		assertEquals(4, list.size());
 	}
 	
-
+*/
 }

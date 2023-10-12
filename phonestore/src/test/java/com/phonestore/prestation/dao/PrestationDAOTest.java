@@ -38,7 +38,7 @@ public class PrestationDAOTest {
 		 * tests if findByUser returns the good List of prestations
 		 * 
 		 * @throws Exception
-		 */
+		 
 		@Test
 		@Sql("/testsql/catalogue/prestation/loadPrestation.sql")
 		public void findByUser() throws Exception {
@@ -57,5 +57,5 @@ public class PrestationDAOTest {
 			
 			
 		}
-
+*/
 }

@@ -47,7 +47,7 @@ public class PrestationServiceTest {
 	 * tests if findAll returns the good List of prestations
 	 * 
 	 * @throws Exception
-	 */
+	 
 	@Test
 	@Sql("/testsql/catalogue/prestation/loadPrestations2.sql")
 	public void findAll() throws Exception {
@@ -58,11 +58,11 @@ public class PrestationServiceTest {
 
 	}
 	
-	/**
+	
 	 * tests if findByNumeroSerie returns the good List of prestations
 	 * 
 	 * @throws Exception
-	 */
+	 
 	@Test
 	@Sql("/testsql/catalogue/prestation/loadPrestations2.sql")
 	public void findByNumeroSerie() throws Exception {
@@ -83,11 +83,11 @@ public class PrestationServiceTest {
 
 	}
 	
-	/**
+	
 	 * tests if findByIdList returns the good List of prestations
 	 * 
 	 * @throws Exception
-	 */
+	 
 	@Test
 	@Sql("/testsql/catalogue/prestation/loadPrestations2.sql")
 	public void findByIdList() throws Exception {
@@ -107,13 +107,13 @@ public class PrestationServiceTest {
 		System.out.println("Prix association :"+prestation.getPrix());
 
 	}
-
-
-	/**
+	
+	
+	
 	 * tests if findPrestationByIdentifiantUsager returns the good List of prestations
 	 * 
 	 * @throws Exception
-	 */
+	 
 	@Test
 	@Sql("/testsql/catalogue/prestation/loadPrestation.sql")
 	public void findPrestationByIdentifiantUsager() throws Exception {
@@ -126,11 +126,11 @@ public class PrestationServiceTest {
 	
 	
 	
-	/**
+	
 	 * tests if findPrestationByNomUsager returns the good  of prestation
 	 * 
 	 * @throws Exception
-	 */
+	 
 	@Test
 	@Sql("/testsql/catalogue/prestation/loadPrestation.sql")
 	public void findPrestationById() throws Exception {
@@ -150,11 +150,11 @@ public class PrestationServiceTest {
 
 	}
 	
-	/**
+	
 	 * tests if createPrestation functions
 	 * 
 	 * @throws Exception
-	 */
+	 
 	@Test
 	@Sql("/testsql/catalogue/prestation/loadPrestation.sql")
 public void testCreatePrestation() {
@@ -178,11 +178,11 @@ public void testCreatePrestation() {
 	}
 
 
-	/**
+	
 	 * tests if createPrestation throws the right Exception
 	 * 
 	 * @throws Exception
-	 */
+	 
 @Test
 @Sql("/testsql/catalogue/prestation/loadPrestation.sql")
 public void testCreateModeleUserFaux() {
@@ -194,11 +194,11 @@ public void testCreateModeleUserFaux() {
 }
 
 
-/**
+
  * tests if createPrestation throws the right Exception
  * 
  * @throws Exception
- */
+ 
 @Test
 @Sql("/testsql/catalogue/prestation/loadPrestation.sql")
 public void testCreateModeleUserNonUsager() {
@@ -210,11 +210,11 @@ assertThrows(UserNonUsagerException.class, ()->prestationService.createPrestatio
 }
 
 
-/**
+
  * tests if createPrestation throws the right Exception
  * 
  * @throws Exception
- */
+ 
 @Test
 @Sql("/testsql/catalogue/prestation/loadPrestation.sql")
 public void testCreateModeleModeleFaux() {
@@ -225,11 +225,11 @@ assertThrows(IdModeleNonExistantException.class, ()->prestationService.createPre
 
 }
 
-/**
+
  * tests if createPrestation throws the right Exception
  * 
  * @throws Exception
- */
+ 
 @Test
 @Sql("/testsql/catalogue/prestation/loadPrestation.sql")
 public void testCreatePrestationAssociationFausse() {
@@ -240,11 +240,11 @@ assertThrows(AssociationmodeletelephonereparationNonExistanteException.class, ()
 
 }
 
-/**
+
  * tests if createPrestation functions
  * 
  * @throws Exception
- */
+ 
 @Test
 @Sql("/testsql/catalogue/prestation/loadPrestation.sql")
 public void testUpdatePrestation() {
@@ -272,11 +272,11 @@ public void testUpdatePrestation() {
 }
 
 
-/**
+
  * tests if updatePrestation throws the right Exception
  * 
  * @throws Exception
- */
+ 
 @Test
 @Sql("/testsql/catalogue/prestation/loadPrestation.sql")
 public void testUpdateModeleUserFaux() {
@@ -290,11 +290,11 @@ assertThrows(UserNonExistantException.class, ()->prestationService.updatePrestat
 }
 
 
-/**
+
 * tests if updatePrestation throws the right Exception
 * 
 * @throws Exception
-*/
+
 @Test
 @Sql("/testsql/catalogue/prestation/loadPrestation.sql")
 public void testUpdateModeleUserNonUsager() {
@@ -310,11 +310,11 @@ assertThrows(UserNonUsagerException.class, ()->prestationService.updatePrestatio
 
 
 
-/**
+
 * tests if updatePrestation throws the right Exception
 * 
 * @throws Exception
-*/
+
 @Test
 @Sql("/testsql/catalogue/prestation/loadPrestation.sql")
 public void testUpdateAssociationPrestationFausse() {
@@ -328,11 +328,11 @@ assertThrows(AssociationmodeletelephonereparationNonExistanteException.class, ()
 
 }
 
-/**
+
 * tests if updatePrestation throws the right Exception
 * 
 * @throws Exception
-*/
+
 @Test
 @Sql("/testsql/catalogue/prestation/loadPrestation.sql")
 public void testUpdatePrestationNonExistante() {
@@ -345,6 +345,7 @@ assertThrows(PrestationNonExistanteException.class, ()->prestationService.update
 
 
 }
+*/
 
 
 

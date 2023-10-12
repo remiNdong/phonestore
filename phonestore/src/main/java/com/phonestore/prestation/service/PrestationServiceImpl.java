@@ -13,23 +13,16 @@ import com.phonestore.administration.dao.RoleDAO;
 import com.phonestore.administration.dao.UserDAO;
 import com.phonestore.administration.domain.Role;
 import com.phonestore.administration.domain.User;
-import com.phonestore.administration.dto.UserDTO;
 import com.phonestore.administration.exception.UserNonUsagerException;
-import com.phonestore.administration.service.UserDTOMapper;
 import com.phonestore.catalogue.dao.AssociationmodelereparationDAO;
 import com.phonestore.catalogue.dao.ModeletelephoneDAO;
 import com.phonestore.catalogue.domain.Associationmodelereparation;
-import com.phonestore.catalogue.domain.Marque;
 import com.phonestore.catalogue.domain.Modeletelephone;
-import com.phonestore.catalogue.domain.Reparation;
-import com.phonestore.catalogue.dto.ModeletelephoneDTO;
+
 import com.phonestore.catalogue.exception.AssociationmodeletelephonereparationNonExistanteException;
-import com.phonestore.catalogue.exception.IdAssociationNonExistanteException;
-import com.phonestore.catalogue.exception.IdMarqueNonExistanteException;
+
 import com.phonestore.catalogue.exception.IdModeleNonExistantException;
-import com.phonestore.catalogue.exception.IdReparationNonExistanteException;
-import com.phonestore.catalogue.exception.ReferenceModeleExistanteException;
-import com.phonestore.catalogue.service.CatalogueDTOMapper;
+
 import com.phonestore.prestation.dao.PrestationDAO;
 import com.phonestore.prestation.domain.Prestation;
 import com.phonestore.prestation.dto.PrestationCreationDTO;

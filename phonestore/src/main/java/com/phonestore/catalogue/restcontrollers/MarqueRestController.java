@@ -17,7 +17,7 @@ import com.phonestore.catalogue.service.CatalogueService;
 
 @RestController
 @RequestMapping("/api/marques")
-@CrossOrigin
+//@CrossOrigin
 public class MarqueRestController {
 	
 	   @Autowired
