@@ -16,8 +16,8 @@ public class TestDBConfig {
  String url;
  @Value("${spring.datasource.username}")
  String user;
- @Value("${spring.datasource.password}")
- String password;
+// @Value("${spring.datasource.password}")
+ //String password;
 
 }
 
